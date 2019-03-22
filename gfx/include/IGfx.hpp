@@ -13,7 +13,9 @@
 class IGfx {
 	public:
         // need enum for events handling
+
 		virtual ~IGfx() = default;
+
         virtual void gfxLoop() = 0;
         virtual void createWindow() = 0;
         virtual void menu() = 0;

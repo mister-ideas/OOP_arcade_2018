@@ -11,6 +11,7 @@
 class IGame {
 	public:
 		virtual ~IGame() = default;
+
         virtual void gameLoop() = 0;
         virtual void generateMap() = 0;
         virtual void displayScore(int posX, int posY, int value) = 0;
