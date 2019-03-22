@@ -19,7 +19,9 @@ class IGfx {
         virtual void menu() = 0;
         virtual void getEvents() = 0;
         virtual void clear() = 0;
-        virtual void draw(int posX, int posY, const std::string &path, int retX1 = 0, int retY1 = 0, int retX2 = 0, int retY2 = 0) = 0;
+        virtual void drawChar(int posX, int posY, char value) = 0;
+        virtual void drawSprite(int posX, int posY, const std::string &path) = 0;
+        virtual void drawSpriteRet(int posX, int posY, int retX1, int retY1, int retX2, int retY2, const std::string &path) = 0;
 };
 
 #endif /* !IGFX_HPP_ */
