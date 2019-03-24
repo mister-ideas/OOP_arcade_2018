@@ -26,7 +26,7 @@ class IGfx {
 
         virtual void gfxLoop() = 0;
         virtual void createWindow() = 0;
-        virtual void menu() = 0;
+        virtual int menu(std::vector<std::string> games) = 0;
         virtual IGfx::ACTION getEvents() = 0;
         virtual void clear() = 0;
         virtual void drawString(int posX, int posY, const char *value) = 0;
