@@ -12,14 +12,22 @@
 
 class IGfx {
 	public:
-        // need enum for events handling
+        enum ACTION {
+            NEXT_GFX,
+            PREV_GFX,
+            NEXT_GAME,
+            PREV_GAME,
+            RESTART,
+            MENU,
+            EXIT
+        };
 
 		virtual ~IGfx() = default;
 
         virtual void gfxLoop() = 0;
         virtual void createWindow() = 0;
         virtual void menu() = 0;
-        virtual void getEvents() = 0;
+        virtual IGfx::ACTION getEvents() = 0;
         virtual void clear() = 0;
         virtual void drawString(int posX, int posY, const char *value) = 0;
         virtual void drawSprite(int posX, int posY, const std::string &path) = 0;
