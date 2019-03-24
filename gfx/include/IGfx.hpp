@@ -23,7 +23,8 @@ class IGfx {
             PREV_GAME,
             RESTART,
             MENU,
-            EXIT
+            EXIT,
+            OTHER
         };
 
 		virtual ~IGfx() = default;
