@@ -28,6 +28,6 @@ T *LibLoader<T>::getClass(const std::string &entryPoint) const noexcept
 {
     T *(*instance)(void) = reinterpret_cast<T *(*)(void)>(dlsym(_lib, entryPoint.c_str()));
     if (!instance)
-        return (nullptr);
+        throw Error(dlerror());
     return instance();
 }
