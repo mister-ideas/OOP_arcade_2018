@@ -13,6 +13,10 @@
 class IGfx {
 	public:
         enum ACTION {
+            MOVE_UP,
+            MOVE_DOWN,
+            MOVE_LEFT,
+            MOVE_RIGHT,
             NEXT_GFX,
             PREV_GFX,
             NEXT_GAME,
