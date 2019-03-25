@@ -9,6 +9,7 @@
 #define IGFX_HPP_
 
 #include <string>
+#include <vector>
 
 class IGfx {
 	public:
@@ -30,7 +31,7 @@ class IGfx {
 		virtual ~IGfx() = default;
 
         virtual void gfxLoop() = 0;
-        virtual void createWindow() = 0;
+        virtual void createWindow(int width, int height, int posX = 0, int posY = 0) = 0;
         virtual int menu(std::vector<std::string> games) = 0;
         virtual IGfx::ACTION getEvents() = 0;
         virtual void clear() = 0;
