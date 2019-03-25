@@ -18,12 +18,13 @@ class Core {
 		Core();
 		~Core() = default;
 
+        void readDir(const std::string &path, std::vector<std::string> &vector) noexcept;
         void loadGfx(const std::string &path);
         void loadGame(const std::string &path);
-        void nextGfx();
-        void prevGfx();
-        void nextGame();
-        void prevGame();
+        void nextGfx() noexcept;
+        void prevGfx() noexcept;
+        void nextGame() noexcept;
+        void prevGame() noexcept;
         void events(IGfx::ACTION event) noexcept;
         void start();
 
@@ -32,8 +33,8 @@ class Core {
         std::vector<std::string> _gamesPaths;
         IGfx *_currentGfx;
         IGame *_currentGame;
-        int _currentGfxPos;
-        int _currentGamePos;
+        size_t _currentGfxPos;
+        size_t _currentGamePos;
 };
 
 #endif /* !CORE_HPP_ */

@@ -5,30 +5,39 @@
 ** Core
 */
 
-#include <filesystem>
+#include <iostream>
 #include <algorithm>
+#include <string>
+#include <dirent.h>
 #include "Core.hpp"
 #include "Error.hpp"
 #include "LibLoader.hpp"
-#include "../gfx/include/IGfx.hpp"
-#include "../games/include/IGame.hpp"
 
 Core::Core()
 {
-    std::string gfxFolder = "./lib";
-    for (const auto &file : std::filesystem::directory_iterator(gfxFolder)) {
-        if (file.path().extension() == ".so")
-            _gfxPaths.push_back(file.path());
-    }
-    std::string gamesFolder = "./games";
-    for (const auto &file : std::filesystem::directory_iterator(gamesFolder)) {
-        if (file.path().extension() == ".so")
-            _gamesPaths.push_back(file.path());
-    }
+    readDir("./lib/", _gfxPaths);
+    readDir("./games/", _gamesPaths);
     _currentGfxPos = 0;
     _currentGamePos = 0;
     _currentGfx = nullptr;
     _currentGame = nullptr;
+}
+
+void Core::readDir(const std::string &path, std::vector<std::string> &vector) noexcept
+{
+    DIR *dir;
+    struct dirent *entry;
+
+    dir = opendir(path.c_str());
+    if (dir) {
+        while ((entry = readdir(dir))) {
+            std::string name = entry->d_name;
+            size_t pos = name.find(".so");
+            if (pos != std::string::npos && name.size() > 3 && pos == name.size() - 3)
+                vector.push_back(path + name);
+        }
+    }
+    closedir(dir);
 }
 
 void Core::loadGfx(const std::string &path)
@@ -38,7 +47,7 @@ void Core::loadGfx(const std::string &path)
         throw Error("Requested graphics library is not in lib folder");
     LibLoader<IGfx> *loader = new LibLoader<IGfx>(path);
     _currentGfxPos = std::distance(_gfxPaths.begin(), it);
-    _currentGfx = loader->getClass("entryPoint");
+    _currentGfx = loader->getClass();
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
     start();
 }
@@ -52,7 +61,7 @@ void Core::loadGame(const std::string &path)
         throw Error("Requested game is not in games folder");
     LibLoader<IGame> *loader = new LibLoader<IGame>(path);
     _currentGamePos = std::distance(_gamesPaths.begin(), it);
-    _currentGame = loader->getClass("entryPoint");
+    _currentGame = loader->getClass();
 }
 
 void Core::events(IGfx::ACTION event) noexcept
@@ -90,17 +99,17 @@ void Core::start()
     // core loop
 }
 
-void Core::nextGfx()
+void Core::nextGfx() noexcept
 {
     delete _currentGfx;
     _currentGfxPos++;
     if (_currentGfxPos > _gfxPaths.size() - 1)
         _currentGfxPos = 0;
     LibLoader<IGfx> *loader = new LibLoader<IGfx>(_gfxPaths[_currentGfxPos]);
-    _currentGfx = loader->getClass("entryPoint");
+    _currentGfx = loader->getClass();
 }
 
-void Core::prevGfx()
+void Core::prevGfx() noexcept
 {
     delete _currentGfx;
     if (_currentGfxPos == 0)
@@ -108,10 +117,10 @@ void Core::prevGfx()
     else
         _currentGfxPos--;
     LibLoader<IGfx> *loader = new LibLoader<IGfx>(_gfxPaths[_currentGfxPos]);
-    _currentGfx = loader->getClass("entryPoint");
+    _currentGfx = loader->getClass();
 }
 
-void Core::nextGame()
+void Core::nextGame() noexcept
 {
     if (_currentGame)
         delete _currentGame;
@@ -119,11 +128,11 @@ void Core::nextGame()
     if (_currentGamePos > _gamesPaths.size() - 1)
         _currentGamePos = 0;
     LibLoader<IGame> *loader = new LibLoader<IGame>(_gamesPaths[_currentGamePos]);
-    _currentGame = loader->getClass("entryPoint");
+    _currentGame = loader->getClass();
     // load new game map
 }
 
-void Core::prevGame()
+void Core::prevGame() noexcept
 {
     if (_currentGame)
         delete _currentGame;
@@ -132,6 +141,6 @@ void Core::prevGame()
     else
         _currentGamePos--;
     LibLoader<IGame> *loader = new LibLoader<IGame>(_gamesPaths[_currentGamePos]);
-    _currentGame = loader->getClass("entryPoint");
+    _currentGame = loader->getClass();
     // load new game map
 }
