@@ -35,7 +35,7 @@ class IGfx {
         virtual int menu(std::vector<std::string> games) = 0;
         virtual IGfx::ACTION getEvents() = 0;
         virtual void clear() = 0;
-        virtual void drawString(int posX, int posY, const char *value) = 0;
+        virtual void drawPixel(int posX, int posY, const char *value) = 0;
         virtual void drawSprite(int posX, int posY, const std::string &path) = 0;
         virtual void drawSpriteRet(int posX, int posY, int retX1, int retY1, int retX2, int retY2, const std::string &path) = 0;
 };
