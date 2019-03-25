@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <string>
-#include "../gfx/include/IGfx.hpp"
+#include "../lib/include/IGfx.hpp"
 #include "../games/include/IGame.hpp"
 
 class Core {
