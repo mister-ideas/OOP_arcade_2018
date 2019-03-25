@@ -14,10 +14,23 @@
 template <typename T>
 class LibLoader {
 	public:
-		LibLoader(const std::string &path);
-		~LibLoader();
+		LibLoader(const std::string &path) {
+            _lib = dlopen(path.c_str(), RTLD_LAZY);
+            if (!_lib)
+                throw Error(dlerror());
+        };
 
-        T *getClass(const std::string &entryPoint) const noexcept;
+		~LibLoader() {
+            if (dlclose(_lib) != 0)
+                throw Error(dlerror());
+        };
+
+        T *getClass(const std::string &entryPoint = "entryPoint") const {
+            T *(*instance)(void) = reinterpret_cast<T *(*)(void)>(dlsym(_lib, entryPoint.c_str()));
+            if (!instance)
+                throw Error(dlerror());
+            return instance();
+        };
 
 	private:
         void *_lib;
