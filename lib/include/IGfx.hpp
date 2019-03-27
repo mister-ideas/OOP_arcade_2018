@@ -47,7 +47,7 @@ class IGfx {
         virtual void drawMovDoor(int posX, int posY) = 0;
         virtual void drawUniqueDoor(int posX, int posY) = 0;
 
-        virtual void setGame(std::unique_ptr<IGame> game) = 0;
+        virtual void setGame(std::unique_ptr<IGame> &game) = 0;
 };
 
 #endif /* !IGFX_HPP_ */
