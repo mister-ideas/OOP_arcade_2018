@@ -120,7 +120,9 @@ void Core::nextGame() noexcept
     _currentGamePos++;
     if (_currentGamePos > _gamesPaths.size() - 1)
         _currentGamePos = 0;
-    loadGame(_gamesPaths[_currentGamePos]);
+    auto loader = std::make_unique<LibLoader<IGame>>(_gamesPaths[_currentGamePos]);
+    _currentGame = loader->getClass();
+    _currentGfx->setGame(_currentGame);
 }
 
 void Core::prevGame() noexcept
@@ -129,5 +131,7 @@ void Core::prevGame() noexcept
         _currentGamePos = _gamesPaths.size() - 1;
     else
         _currentGamePos--;
-    loadGame(_gamesPaths[_currentGamePos]);
+    auto loader = std::make_unique<LibLoader<IGame>>(_gamesPaths[_currentGamePos]);
+    _currentGame = loader->getClass();
+    _currentGfx->setGame(_currentGame);
 }
