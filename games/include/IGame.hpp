@@ -9,12 +9,24 @@
 #define IGAME_HPP_
 
 class IGame {
-	public:
-		virtual ~IGame() = default;
+    public:
+        enum ENTITY {
+            WALL,
+            PLAYER,
+            PICKUP,
+            ENEMY,
+            MOV_DOOR,
+            UNIQUE_DOOR,
+            OTHER
+        };
 
-        virtual void gameLoop() = 0;
+        virtual ~IGame() = default;
+
+        virtual void updateMap() = 0;
+        virtual void play() = 0;
         virtual void generateMap() = 0;
         virtual void displayScore(int posX, int posY, int value) = 0;
+        // virtual std::unique_ptr<Map> getMap() = 0;
 };
 
 #endif /* !IGAME_HPP_ */

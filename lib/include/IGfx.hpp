@@ -10,9 +10,11 @@
 
 #include <string>
 #include <vector>
+#include <memory>
+#include "../../games/include/IGame.hpp"
 
 class IGfx {
-	public:
+    public:
         enum ACTION {
             MOVE_UP,
             MOVE_DOWN,
@@ -28,16 +30,21 @@ class IGfx {
             OTHER
         };
 
-		virtual ~IGfx() = default;
+        virtual ~IGfx() = default;
 
-        virtual void gfxLoop() = 0;
+        virtual void gfxLoop(IGfx::ACTION &action) = 0;
         virtual void createWindow() = 0;
+        // virtual void drawMap(std::unique_ptr<Map> map) = 0;
         virtual int menu(std::vector<std::string> games) = 0;
-        virtual IGfx::ACTION getEvents() = 0;
+        virtual void getEvents(IGfx::ACTION &action) = 0;
         virtual void clear() = 0;
-        virtual void drawPixel(int posX, int posY, const char *value) = 0;
-        virtual void drawSprite(int posX, int posY, const std::string &path) = 0;
-        virtual void drawSpriteRet(int posX, int posY, int retX1, int retY1, int retX2, int retY2, const std::string &path) = 0;
+        virtual void setGame(std::unique_ptr<IGame> game) = 0;
+        virtual void drawWall(int posX, int posY) = 0;
+        virtual void drawPlayer(int posX, int posY) = 0;
+        virtual void drawPickup(int posX, int posY) = 0;
+        virtual void drawEnemy(int posX, int posY) = 0;
+        virtual void drawMovDoor(int posX, int posY) = 0;
+        virtual void drawUniqueDoor(int posX, int posY) = 0;
 };
 
 #endif /* !IGFX_HPP_ */
