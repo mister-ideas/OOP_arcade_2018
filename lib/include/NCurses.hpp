@@ -10,7 +10,7 @@
 
 #include <ncurses.h>
 #include <vector>
-#include "../IGfx.hpp"
+#include "IGfx.hpp"
 
 class NCurses : public IGfx {
     public:

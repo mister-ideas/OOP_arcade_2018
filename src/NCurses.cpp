@@ -5,7 +5,7 @@
 ** Ncurses
 */
 
-#include "./gfx/include/Ncurses.hpp"
+#include "../lib/include/NCurses.hpp"
 #include <string.h>
 
 NCurses::NCurses(void)
