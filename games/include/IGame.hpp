@@ -25,9 +25,13 @@ class IGame {
         virtual void generateMap() = 0;
 
         virtual void play() = 0;
-        virtual void updateMap() = 0;
-        virtual void displayScore(int posX, int posY, int value) = 0;
+        virtual void MoveUp() = 0;
+        virtual void MoveDown() = 0;
+        virtual void MoveLeft() = 0;
+        virtual void MoveRight() = 0;
+        virtual bool updateMap() = 0;
 
+        virtual int getScore() = 0;
         virtual std::unique_ptr<Map> getMap() = 0;
 };
 

@@ -63,6 +63,7 @@ void Core::loadGame(const std::string &path)
     _currentGamePos = std::distance(_gamesPaths.begin(), it);
     _currentGame = loader->getClass();
     _currentGfx->setGame(_currentGame);
+    // generate new map
 }
 
 void Core::events(IGfx::ACTION &event) noexcept
