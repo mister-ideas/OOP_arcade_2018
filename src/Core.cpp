@@ -93,7 +93,16 @@ void Core::events(IGfx::ACTION &event) noexcept
 
 void Core::start()
 {
-    // core loop
+    bool inProgress = true;
+    IGfx::ACTION action = IGfx::ACTION::OTHER;
+
+    while (inProgress) {
+        _currentGfx->gfxLoop(action, inProgress);
+        if (action == IGfx::ACTION::EXIT)
+            return;
+        events(action);
+    }
+    loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
 }
 
 void Core::nextGfx() noexcept
