@@ -9,24 +9,25 @@
 #define LIBLOADER_HPP_
 
 #include <string>
+#include <iostream>
 #include <dlfcn.h>
 
 template <typename T>
 class LibLoader {
 	public:
-		LibLoader(const std::string &path) {
+		LibLoader(const std::string &path) noexcept(false) {
             _lib = dlopen(path.c_str(), RTLD_LAZY);
             if (!_lib)
                 throw Error(dlerror());
         };
 
-		~LibLoader() {
+		~LibLoader() noexcept(false) {
             if (dlclose(_lib) != 0)
                 throw Error(dlerror());
         };
 
-        T *getClass(const std::string &entryPoint = "entryPoint") const {
-            T *(*instance)(void) = reinterpret_cast<T *(*)(void)>(dlsym(_lib, entryPoint.c_str()));
+        std::unique_ptr<T> getClass(const std::string &entryPoint = "entryPoint") const {
+            std::unique_ptr<T>(*instance)(void) = reinterpret_cast<std::unique_ptr<T>(*)(void)>(dlsym(_lib, entryPoint.c_str()));
             if (!instance)
                 throw Error(dlerror());
             return instance();
