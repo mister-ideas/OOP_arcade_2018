@@ -62,6 +62,7 @@ void Core::loadGame(const std::string &path)
     auto loader = std::make_unique<LibLoader<IGame>>(path);
     _currentGamePos = std::distance(_gamesPaths.begin(), it);
     _currentGame = loader->getClass();
+    _currentGfx->setGame(_currentGame);
 }
 
 void Core::events(IGfx::ACTION &event) noexcept
@@ -80,14 +81,10 @@ void Core::events(IGfx::ACTION &event) noexcept
             prevGame();
             break;
         case IGfx::ACTION::RESTART:
-            _currentGfx->clear();
             loadGame(_gamesPaths[_currentGamePos]);
-            // load new game map
             break;
         case IGfx::ACTION::MENU:
-            _currentGfx->clear();
             loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
-            // load new game map
             break;
         default:
             break;
@@ -123,9 +120,7 @@ void Core::nextGame() noexcept
     _currentGamePos++;
     if (_currentGamePos > _gamesPaths.size() - 1)
         _currentGamePos = 0;
-    auto loader = std::make_unique<LibLoader<IGame>>(_gfxPaths[_currentGfxPos]);
-    _currentGame = loader->getClass();
-    // load new game map
+    loadGame(_gamesPaths[_currentGamePos]);
 }
 
 void Core::prevGame() noexcept
@@ -134,7 +129,5 @@ void Core::prevGame() noexcept
         _currentGamePos = _gamesPaths.size() - 1;
     else
         _currentGamePos--;
-    auto loader = std::make_unique<LibLoader<IGame>>(_gfxPaths[_currentGfxPos]);
-    _currentGame = loader->getClass();
-    // load new game map
+    loadGame(_gamesPaths[_currentGamePos]);
 }
