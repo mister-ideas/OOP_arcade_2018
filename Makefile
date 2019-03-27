@@ -15,14 +15,14 @@ OBJ=		$(SRC:.cpp=.o)
 
 NAME=		arcade
 
-CXXFLAGS=	-Wall -Wextra -Werror
+CXXFLAGS=	-Wall -Wextra -Werror -std=c++17
 
 CPPFLAGS=	-ldl -I include/
 
 all: 		core games graphicals
 
 core: 		$(OBJ)
-			$(CXX) $(OBJ) -o $(NAME) $(CFLAGS) $(CPPFLAGS)
+			$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $(NAME) $(OBJ)
 
 games:
 
