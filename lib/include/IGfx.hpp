@@ -32,19 +32,22 @@ class IGfx {
 
         virtual ~IGfx() = default;
 
-        virtual void gfxLoop(IGfx::ACTION &action) = 0;
         virtual void createWindow() = 0;
-        // virtual void drawMap(std::unique_ptr<Map> map) = 0;
         virtual int menu(std::vector<std::string> games) = 0;
-        virtual void getEvents(IGfx::ACTION &action) = 0;
+
+        virtual void gfxLoop(IGfx::ACTION &action) = 0;
         virtual void clear() = 0;
-        virtual void setGame(std::unique_ptr<IGame> game) = 0;
+        virtual void drawMap(std::unique_ptr<Map> map) = 0;
+        virtual void getEvents(IGfx::ACTION &action) = 0;
+
         virtual void drawWall(int posX, int posY) = 0;
         virtual void drawPlayer(int posX, int posY) = 0;
         virtual void drawPickup(int posX, int posY) = 0;
         virtual void drawEnemy(int posX, int posY) = 0;
         virtual void drawMovDoor(int posX, int posY) = 0;
         virtual void drawUniqueDoor(int posX, int posY) = 0;
+
+        virtual void setGame(std::unique_ptr<IGame> &game) = 0;
 };
 
 #endif /* !IGFX_HPP_ */
