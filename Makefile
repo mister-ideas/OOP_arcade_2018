@@ -19,10 +19,14 @@ CXXFLAGS=	-Wall -Wextra -Werror
 
 CPPFLAGS=	-ldl -I include/
 
-all: 		$(NAME)
+all: 		core games graphicals
 
-$(NAME): 	$(OBJ)
+core: 		$(OBJ)
 			$(CXX) $(OBJ) -o $(NAME) $(CFLAGS) $(CPPFLAGS)
+
+games:
+
+graphicals:
 
 clean:
 			$(RM) $(OBJ)
