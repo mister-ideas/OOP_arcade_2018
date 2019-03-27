@@ -15,8 +15,8 @@
 
 Core::Core()
 {
-    readDir("./lib/", _gfxPaths);
-    readDir("./games/", _gamesPaths);
+    readDir("lib/", _gfxPaths);
+    readDir("games/", _gamesPaths);
     _currentGfxPos = 0;
     _currentGamePos = 0;
     _currentGfx = nullptr;
@@ -40,12 +40,14 @@ void Core::readDir(const std::string &path, std::vector<std::string> &vector) no
     closedir(dir);
 }
 
-void Core::loadGfx(const std::string &path)
+void Core::loadGfx(std::string &path)
 {
+    while (path[0] == '.' || path[0] == '/')
+        path.erase(0, 1);
     std::vector<std::string>::iterator it = std::find(_gfxPaths.begin(), _gfxPaths.end(), path);
     if (it == _gfxPaths.end())
-        throw Error("Requested graphics library is not in lib folder");
-    LibLoader<IGfx> *loader = new LibLoader<IGfx>(path);
+        throw Error("Invalid path or requested graphics library not in lib folder");
+    auto loader = std::make_unique<LibLoader<IGfx>>(path);
     _currentGfxPos = std::distance(_gfxPaths.begin(), it);
     _currentGfx = loader->getClass();
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
@@ -54,17 +56,15 @@ void Core::loadGfx(const std::string &path)
 
 void Core::loadGame(const std::string &path)
 {
-    if (_currentGame)
-        delete _currentGame;
     std::vector<std::string>::iterator it = std::find(_gamesPaths.begin(), _gamesPaths.end(), path);
     if (it == _gamesPaths.end())
         throw Error("Requested game is not in games folder");
-    LibLoader<IGame> *loader = new LibLoader<IGame>(path);
+    auto loader = std::make_unique<LibLoader<IGame>>(path);
     _currentGamePos = std::distance(_gamesPaths.begin(), it);
     _currentGame = loader->getClass();
 }
 
-void Core::events(IGfx::ACTION event) noexcept
+void Core::events(IGfx::ACTION &event) noexcept
 {
     switch (event) {
         case IGfx::ACTION::NEXT_GFX:
@@ -101,46 +101,40 @@ void Core::start()
 
 void Core::nextGfx() noexcept
 {
-    delete _currentGfx;
     _currentGfxPos++;
     if (_currentGfxPos > _gfxPaths.size() - 1)
         _currentGfxPos = 0;
-    LibLoader<IGfx> *loader = new LibLoader<IGfx>(_gfxPaths[_currentGfxPos]);
+    auto loader = std::make_unique<LibLoader<IGfx>>(_gfxPaths[_currentGfxPos]);
     _currentGfx = loader->getClass();
 }
 
 void Core::prevGfx() noexcept
 {
-    delete _currentGfx;
     if (_currentGfxPos == 0)
         _currentGfxPos = _gfxPaths.size() - 1;
     else
         _currentGfxPos--;
-    LibLoader<IGfx> *loader = new LibLoader<IGfx>(_gfxPaths[_currentGfxPos]);
+    auto loader = std::make_unique<LibLoader<IGfx>>(_gfxPaths[_currentGfxPos]);
     _currentGfx = loader->getClass();
 }
 
 void Core::nextGame() noexcept
 {
-    if (_currentGame)
-        delete _currentGame;
     _currentGamePos++;
     if (_currentGamePos > _gamesPaths.size() - 1)
         _currentGamePos = 0;
-    LibLoader<IGame> *loader = new LibLoader<IGame>(_gamesPaths[_currentGamePos]);
+    auto loader = std::make_unique<LibLoader<IGame>>(_gfxPaths[_currentGfxPos]);
     _currentGame = loader->getClass();
     // load new game map
 }
 
 void Core::prevGame() noexcept
 {
-    if (_currentGame)
-        delete _currentGame;
     if (_currentGamePos == 0)
         _currentGamePos = _gamesPaths.size() - 1;
     else
         _currentGamePos--;
-    LibLoader<IGame> *loader = new LibLoader<IGame>(_gamesPaths[_currentGamePos]);
+    auto loader = std::make_unique<LibLoader<IGame>>(_gfxPaths[_currentGfxPos]);
     _currentGame = loader->getClass();
     // load new game map
 }

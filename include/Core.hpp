@@ -19,20 +19,20 @@ class Core {
 		~Core() = default;
 
         void readDir(const std::string &path, std::vector<std::string> &vector) noexcept;
-        void loadGfx(const std::string &path);
+        void loadGfx(std::string &path);
         void loadGame(const std::string &path);
         void nextGfx() noexcept;
         void prevGfx() noexcept;
         void nextGame() noexcept;
         void prevGame() noexcept;
-        void events(IGfx::ACTION event) noexcept;
+        void events(IGfx::ACTION &action) noexcept;
         void start();
 
 	private:
         std::vector<std::string> _gfxPaths;
         std::vector<std::string> _gamesPaths;
-        IGfx *_currentGfx;
-        IGame *_currentGame;
+        std::unique_ptr<IGfx> _currentGfx;
+        std::unique_ptr<IGame> _currentGame;
         size_t _currentGfxPos;
         size_t _currentGamePos;
 };
