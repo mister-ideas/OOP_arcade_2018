@@ -37,7 +37,7 @@ class IGfx {
 
         virtual void gfxLoop(IGfx::ACTION &action) = 0;
         virtual void clear() = 0;
-        virtual void drawMap(std::unique_ptr<Map> map) = 0;
+        // virtual void drawMap(std::unique_ptr<Map> map) = 0;
         virtual void getEvents(IGfx::ACTION &action) = 0;
 
         virtual void drawWall(int posX, int posY) = 0;
@@ -47,7 +47,7 @@ class IGfx {
         virtual void drawMovDoor(int posX, int posY) = 0;
         virtual void drawUniqueDoor(int posX, int posY) = 0;
 
-        virtual void setGame(std::unique_ptr<IGame> game) = 0;
+        virtual void setGame(std::shared_ptr<IGame> game) = 0;
 };
 
 #endif /* !IGFX_HPP_ */
