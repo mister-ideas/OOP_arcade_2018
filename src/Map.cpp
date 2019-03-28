@@ -24,7 +24,7 @@ Map::ENTITY Map::getEntityPos(int x, int y) const
         throw Error("Requested X position in map is invalid");
     if (y <= 0 || y > _height)
         throw Error("Requested Y position in map is invalid");
-    return _map[y][x];
+    return _map[y - 1][x - 1];
 }
 
 void Map::setEntityPos(int x, int y, Map::ENTITY &type)
@@ -33,5 +33,5 @@ void Map::setEntityPos(int x, int y, Map::ENTITY &type)
         throw Error("Requested X position in map is invalid");
     if (y <= 0 || y > _height)
         throw Error("Requested Y position in map is invalid");
-    _map[y][x] = type;
+    _map[y - 1][x - 1] = type;
 }
