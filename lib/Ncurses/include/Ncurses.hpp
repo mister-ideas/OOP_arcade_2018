@@ -10,7 +10,7 @@
 
 #include <ncurses.h>
 #include <vector>
-#include "IGfx.hpp"
+#include "../../../lib/include/IGfx.hpp"
 
 class NCurses : public IGfx {
     public:
@@ -18,7 +18,7 @@ class NCurses : public IGfx {
             SELECTED,
             NOT_SELECTED
         };
-        NCurses();
+        NCurses() = default;
 
         // interface
         void createWindow()

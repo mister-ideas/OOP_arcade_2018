@@ -9,8 +9,7 @@ SRC_DIR=	src/
 
 SRC=		$(SRC_DIR)Core.cpp		\
 			$(SRC_DIR)Error.cpp		\
-			$(SRC_DIR)main.cpp		\
-			$(SRC_DIR)NCurses.cpp	\
+			$(SRC_DIR)main.cpp
 
 OBJ=		$(SRC:.cpp=.o)
 
@@ -28,12 +27,15 @@ core: 		$(OBJ)
 games:
 
 graphicals:
+			make -C lib/Ncurses/
 
 clean:
 			$(RM) $(OBJ)
+			make clean -C lib/Ncurses/
 
 fclean: 	clean
 			$(RM) $(NAME)
+			make fclean -C lib/Ncurses/
 
 re: 		fclean all
 

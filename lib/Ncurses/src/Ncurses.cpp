@@ -5,13 +5,8 @@
 ** Ncurses
 */
 
-#include "../lib/include/NCurses.hpp"
 #include <string.h>
-
-NCurses::NCurses(void)
-{
-
-}
+#include "../include/Ncurses.hpp"
 
 int NCurses::menu(std::vector<std::string> games)
 {
