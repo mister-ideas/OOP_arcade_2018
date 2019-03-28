@@ -9,6 +9,7 @@ SRC_DIR=	src/
 
 SRC=		$(SRC_DIR)Core.cpp		\
 			$(SRC_DIR)Error.cpp		\
+			$(SRC_DIR)Map.cpp		\
 			$(SRC_DIR)main.cpp
 
 OBJ=		$(SRC:.cpp=.o)

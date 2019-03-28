@@ -8,19 +8,10 @@
 #ifndef IGAME_HPP_
 #define IGAME_HPP_
 
+#include "../../include/Map.hpp"
+
 class IGame {
     public:
-        enum ENTITY {
-            WALL,
-            PLAYER,
-            BODY,
-            PICKUP,
-            ENEMY,
-            MOV_DOOR,
-            UNIQUE_DOOR,
-            OTHER
-        };
-
         virtual ~IGame() = default;
 
         virtual void generateMap() = 0;

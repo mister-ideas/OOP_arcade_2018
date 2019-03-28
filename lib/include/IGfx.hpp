@@ -12,6 +12,7 @@
 #include <vector>
 #include <memory>
 #include "../../games/include/IGame.hpp"
+#include "../../include/Map.hpp"
 
 class IGfx {
     public:
