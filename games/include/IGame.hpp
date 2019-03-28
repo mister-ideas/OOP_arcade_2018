@@ -13,6 +13,7 @@ class IGame {
         enum ENTITY {
             WALL,
             PLAYER,
+            BODY,
             PICKUP,
             ENEMY,
             MOV_DOOR,

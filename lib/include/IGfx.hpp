@@ -42,6 +42,7 @@ class IGfx {
 
         virtual void drawWall(int posX, int posY) = 0;
         virtual void drawPlayer(int posX, int posY) = 0;
+        virtual void drawBody(int posX, int posY) = 0;
         virtual void drawPickup(int posX, int posY) = 0;
         virtual void drawEnemy(int posX, int posY) = 0;
         virtual void drawMovDoor(int posX, int posY) = 0;
