@@ -5,8 +5,8 @@
 ** Map
 */
 
-#include "../include/Map.hpp"
-#include "../include/Error.hpp"
+#include "Map.hpp"
+#include "Error.hpp"
 
 Map::Map(int width, int height) : _width(width), _height(height)
 {

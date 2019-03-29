@@ -8,9 +8,9 @@
 #ifndef NCURSES_HPP_
 #define NCURSES_HPP_
 
-#include <ncurses.h>
 #include <vector>
-#include "../../../lib/include/IGfx.hpp"
+#include <ncurses.h>
+#include "../../include/IGfx.hpp"
 
 class NCurses : public IGfx {
     public:
