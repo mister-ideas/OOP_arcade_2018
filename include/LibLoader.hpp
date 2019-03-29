@@ -16,7 +16,7 @@ template <typename T>
 class LibLoader {
 	public:
 		LibLoader(const std::string &path) noexcept(false) {
-            _lib = dlopen(path.c_str(), RTLD_LAZY);
+            _lib = dlopen(path.c_str(), RTLD_NOW);
             if (!_lib)
                 throw Error(dlerror());
         };
