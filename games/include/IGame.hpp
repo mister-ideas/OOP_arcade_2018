@@ -24,7 +24,7 @@ class IGame {
         virtual bool updateMap() = 0;
 
         virtual int getScore() = 0;
-        virtual std::unique_ptr<Map> getMap() = 0;
+        virtual std::shared_ptr<Map> getMap() = 0;
 };
 
 #endif /* !IGAME_HPP_ */

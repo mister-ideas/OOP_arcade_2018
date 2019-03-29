@@ -36,7 +36,7 @@ class IGfx {
         virtual int menu(std::vector<std::string> &games) = 0;
 
         virtual void clear() = 0;
-        virtual void drawMap(std::unique_ptr<Map> map) = 0;
+        virtual void drawMap(std::shared_ptr<Map> map) = 0;
         virtual void getEvents(IGfx::ACTION &action) = 0;
 
         virtual void drawWall(int posX, int posY) = 0;
