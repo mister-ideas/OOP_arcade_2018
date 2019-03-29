@@ -18,7 +18,7 @@ class Core {
 		Core();
 		~Core() = default;
 
-        void readDir(const std::string &path, std::vector<std::string> &vector) noexcept;
+        void readDir(const std::string &path, std::vector<std::string> &vector);
         void loadGfx(std::string &path);
         void loadGame(const std::string &path);
         void nextGfx() noexcept;

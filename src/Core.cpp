@@ -23,7 +23,7 @@ Core::Core()
     _currentGame = nullptr;
 }
 
-void Core::readDir(const std::string &path, std::vector<std::string> &vector) noexcept
+void Core::readDir(const std::string &path, std::vector<std::string> &vector)
 {
     DIR *dir;
     struct dirent *entry;
@@ -38,6 +38,8 @@ void Core::readDir(const std::string &path, std::vector<std::string> &vector) no
         }
     }
     closedir(dir);
+    if (!vector.size())
+        throw Error("There is no library in " + path + " folder");
 }
 
 void Core::loadGfx(std::string &path)
@@ -49,7 +51,7 @@ void Core::loadGfx(std::string &path)
         throw Error("Invalid path or requested graphics library not in lib folder");
     auto loader = std::make_unique<LibLoader<IGfx>>(path);
     _currentGfxPos = std::distance(_gfxPaths.begin(), it);
-    _currentGfx = loader->getClass();
+    _currentGfx = loader->getClass("entryPointGfx");
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
     start();
 }
@@ -61,8 +63,8 @@ void Core::loadGame(const std::string &path)
         throw Error("Requested game is not in games folder");
     auto loader = std::make_unique<LibLoader<IGame>>(path);
     _currentGamePos = std::distance(_gamesPaths.begin(), it);
-    _currentGame = loader->getClass();
-    // generate new map
+    _currentGame = loader->getClass("entryPointGame");
+    _currentGame->generateMap();
 }
 
 void Core::events(IGfx::ACTION &event) noexcept
@@ -126,7 +128,7 @@ void Core::nextGfx() noexcept
     if (_currentGfxPos > _gfxPaths.size() - 1)
         _currentGfxPos = 0;
     auto loader = std::make_unique<LibLoader<IGfx>>(_gfxPaths[_currentGfxPos]);
-    _currentGfx = loader->getClass();
+    _currentGfx = loader->getClass("entryPointGfx");
 }
 
 void Core::prevGfx() noexcept
@@ -136,7 +138,7 @@ void Core::prevGfx() noexcept
     else
         _currentGfxPos--;
     auto loader = std::make_unique<LibLoader<IGfx>>(_gfxPaths[_currentGfxPos]);
-    _currentGfx = loader->getClass();
+    _currentGfx = loader->getClass("entryPointGfx");
 }
 
 void Core::nextGame() noexcept

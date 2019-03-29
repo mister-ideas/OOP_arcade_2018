@@ -26,7 +26,7 @@ class LibLoader {
                 throw Error(dlerror());
         };
 
-        std::unique_ptr<T> getClass(const std::string &entryPoint = "entryPoint") const {
+        std::unique_ptr<T> getClass(const std::string &entryPoint) const {
             std::unique_ptr<T>(*instance)(void) = reinterpret_cast<std::unique_ptr<T>(*)(void)>(dlsym(_lib, entryPoint.c_str()));
             if (!instance)
                 throw Error(dlerror());
