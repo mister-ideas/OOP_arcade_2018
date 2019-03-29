@@ -11,7 +11,6 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "../../games/include/IGame.hpp"
 #include "../../include/Map.hpp"
 
 class IGfx {
@@ -36,7 +35,6 @@ class IGfx {
         virtual void createWindow() = 0;
         virtual int menu(std::vector<std::string> &games) = 0;
 
-        virtual void gfxLoop(IGfx::ACTION &action, bool &inProgress) = 0;
         virtual void clear() = 0;
         virtual void drawMap(std::unique_ptr<Map> map) = 0;
         virtual void getEvents(IGfx::ACTION &action) = 0;
@@ -49,8 +47,6 @@ class IGfx {
         virtual void drawMovDoor(int posX, int posY) = 0;
         virtual void drawUniqueDoor(int posX, int posY) = 0;
         virtual void drawScore(int posX, int posY, int value) = 0;
-
-        virtual void setGame(std::shared_ptr<IGame> game) = 0;
 };
 
 #endif /* !IGFX_HPP_ */

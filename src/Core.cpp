@@ -62,13 +62,24 @@ void Core::loadGame(const std::string &path)
     auto loader = std::make_unique<LibLoader<IGame>>(path);
     _currentGamePos = std::distance(_gamesPaths.begin(), it);
     _currentGame = loader->getClass();
-    _currentGfx->setGame(_currentGame);
     // generate new map
 }
 
 void Core::events(IGfx::ACTION &event) noexcept
 {
     switch (event) {
+        case IGfx::ACTION::MOVE_UP:
+            _currentGame->MoveUp();
+            break;
+        case IGfx::ACTION::MOVE_DOWN:
+            _currentGame->MoveDown();
+            break;
+        case IGfx::ACTION::MOVE_LEFT:
+            _currentGame->MoveLeft();
+            break;
+        case IGfx::ACTION::MOVE_RIGHT:
+            _currentGame->MoveRight();
+            break;
         case IGfx::ACTION::NEXT_GFX:
             nextGfx();
             break;
@@ -98,10 +109,13 @@ void Core::start()
     IGfx::ACTION action = IGfx::ACTION::OTHER;
 
     while (inProgress) {
-        _currentGfx->gfxLoop(action, inProgress);
+        _currentGfx->clear();
+        _currentGfx->drawMap(_currentGame->getMap());
+        _currentGfx->getEvents(action);
         if (action == IGfx::ACTION::EXIT)
-            return;
+            exit(0);
         events(action);
+        inProgress = _currentGame->updateMap();
     }
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
 }
