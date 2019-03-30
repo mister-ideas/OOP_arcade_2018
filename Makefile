@@ -25,20 +25,26 @@ core: 		$(OBJ)
 			$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $(NAME) $(OBJ)
 
 games:
+			make -C games/Nibbler
+			make -C games/Test/
 
 graphicals:
-			make -C lib/Ncurses/
+			#make -C lib/Ncurses/
 			make -C lib/SFML/
 
 clean:
 			$(RM) $(OBJ)
-			make clean -C lib/Ncurses/
+			#make clean -C lib/Ncurses/
 			make clean -C lib/SFML/
+			make clean -C games/Nibbler
+			make clean -C games/Test/
 
 fclean: 	clean
 			$(RM) $(NAME)
-			make fclean -C lib/Ncurses/
+			#make fclean -C lib/Ncurses/
 			make fclean -C lib/SFML/
+			make fclean -C games/Nibbler
+			make fclean -C games/Test/
 
 re: 		fclean all
 

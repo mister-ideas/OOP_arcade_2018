@@ -5,7 +5,7 @@
 ** snake
 */
 
-#include "snake.hpp"
+#include "../include/Snake.hpp"
 #include <iostream>
 
 Snake::Snake(const Location& loc)

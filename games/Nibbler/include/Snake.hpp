@@ -8,8 +8,8 @@
 #ifndef SNAKE_HPP_
 #define SNAKE_HPP_
 
-#include "location.hpp"
-#include "board.hpp"
+#include "../include/Location.hpp"
+#include "../include/Board.hpp"
 
 class Snake
 {

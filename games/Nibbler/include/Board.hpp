@@ -8,8 +8,8 @@
 #ifndef BOARD_HPP_
 #define BOARD_HPP_
 
-#include "location.hpp"
-#include "Map.hpp"
+#include "../include/Location.hpp"
+#include "../../include/Map.hpp"
 #include <memory>
 
 class Board {
