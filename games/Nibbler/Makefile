@@ -9,7 +9,6 @@ SRC_DIR=	src/
 
 SRC=		$(SRC_DIR)Snake.cpp			\
 			$(SRC_DIR)SnakeGame.cpp		\
-			$(SRC_DIR)Game.cpp			\
 			$(SRC_DIR)Goal.cpp			\
 			$(SRC_DIR)Location.cpp		\
 			$(SRC_DIR)Board.cpp			\

@@ -85,7 +85,7 @@ void Snake::Dot::Draw( Board& brd) const
 void Snake::Dot::MoveHead(const Location& pos_loc)
 {
     if (abs(pos_loc.x) + abs(pos_loc.y) > 1)
-        exit;
+        return;
     _loc.Add(pos_loc);
 }
 
