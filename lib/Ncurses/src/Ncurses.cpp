@@ -16,7 +16,7 @@ extern "C"
     }
 }
 
-int Ncurses::menu(std::vector<std::string> games)
+int Ncurses::menu(std::vector<std::string> &games)
 {
 //    WINDOW  *mainWindow = NULL;
     WINDOW  *gameWindow = NULL;

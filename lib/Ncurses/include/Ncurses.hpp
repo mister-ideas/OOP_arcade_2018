@@ -19,19 +19,19 @@ class Ncurses : public IGfx {
             SELECTED,
             NOT_SELECTED
         };
-        Ncurses() = default;
+        Ncurses();
 
         // interface
         void createWindow()
         {
         };
-        int menu(std::vector<std::string> games);
+        int menu(std::vector<std::string> &games);
         void gfxLoop(IGfx::ACTION &action)
         {
             (void) action;
         };
         void clear();
-        void drawMap(std::unique_ptr<Map> map)
+        void drawMap(std::shared_ptr<Map> map)
         {
             (void) map;
         }
@@ -46,9 +46,11 @@ class Ncurses : public IGfx {
         void drawEnemy(int posX, int posY);         // DONE
         void drawMovDoor(int posX, int posY);       // DONE
         void drawUniqueDoor(int posX, int posY);    // DONE
-        void setGame(std::shared_ptr<IGame> game)
+        void drawScore(int posX, int posY, int value)
         {
-            (void) game;
+            (void) posX;
+            (void) posY;
+            (void) value;
         };
 
         // ncurses functions
