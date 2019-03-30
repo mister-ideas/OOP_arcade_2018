@@ -9,9 +9,9 @@
 #include <algorithm>
 #include <string>
 #include <dirent.h>
-#include "Core.hpp"
-#include "Error.hpp"
-#include "LibLoader.hpp"
+#include "../include/Core.hpp"
+#include "../include/Error.hpp"
+#include "../include/LibLoader.hpp"
 
 Core::Core()
 {

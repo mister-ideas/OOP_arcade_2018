@@ -7,11 +7,11 @@
 
 SRC_DIR=	src/
 
-SRC=		$(SRC_DIR)Ncurses.cpp
+SRC=		$(SRC_DIR)SFML.cpp
 
 OBJ=		$(SRC:.cpp=.o)
 
-NAME=		lib_arcade_ncurses.so
+NAME=		lib_arcade_sfml.so
 
 CXXFLAGS=	-Wall -Wextra -Werror -std=c++17
 
@@ -20,8 +20,8 @@ CPPFLAGS=	-I .
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-			$(CXX) $(CXXFLAGS) $(SRC) -lncurses -shared -fPIC -o $(NAME)
-			mv ../$(NAME)
+			$(CXX) $(CXXFLAGS) $(SRC) -lsfml-window -shared -fPIC -o $(NAME)
+			mv $(NAME) ../
 
 clean:
 			$(RM) $(OBJ)
