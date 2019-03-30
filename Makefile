@@ -9,7 +9,6 @@ SRC_DIR=	src/
 
 SRC=		$(SRC_DIR)Core.cpp		\
 			$(SRC_DIR)Error.cpp		\
-			$(SRC_DIR)Map.cpp		\
 			$(SRC_DIR)main.cpp
 
 OBJ=		$(SRC:.cpp=.o)
@@ -18,7 +17,7 @@ NAME=		arcade
 
 CXXFLAGS=	-Wall -Wextra -Werror -std=c++17
 
-CPPFLAGS=	-ldl -I include/
+CPPFLAGS=	-ldl
 
 all: 		core games graphicals
 
@@ -29,15 +28,18 @@ games:
 
 graphicals:
 			make -C lib/Ncurses/
+			make -C lib/SFML/
 
 clean:
 			$(RM) $(OBJ)
 			make clean -C lib/Ncurses/
+			make clean -C lib/SFML/
 
 fclean: 	clean
 			$(RM) $(NAME)
 			make fclean -C lib/Ncurses/
+			make fclean -C lib/SFML/
 
 re: 		fclean all
 
-.PHONY: 	all fclean clean re
+.PHONY: 	all core games graphicals fclean clean re

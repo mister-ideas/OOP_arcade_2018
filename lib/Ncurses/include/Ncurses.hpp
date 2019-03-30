@@ -11,41 +11,46 @@
 #include <vector>
 #include <ncurses.h>
 #include "../../include/IGfx.hpp"
+#include "../../../games/include/IGame.hpp"
 
-class NCurses : public IGfx {
+class Ncurses : public IGfx {
     public:
         enum GAMES {
             SELECTED,
             NOT_SELECTED
         };
-        NCurses() = default;
+        Ncurses();
 
         // interface
         void createWindow()
         {
         };
-        int menu(std::vector<std::string> games);
+        int menu(std::vector<std::string> &games);
         void gfxLoop(IGfx::ACTION &action)
         {
+            (void) action;
         };
         void clear();
-        void drawMap(std::unique_ptr<Map> map);
+        void drawMap(std::shared_ptr<Map> map)
+        {
+            (void) map;
+        }
         void getEvents(IGfx::ACTION &action)
         {
+            (void) action;
         };
 
         void drawWall(int posX, int posY);          // DONE
-        void drawPlayer(int posX, int posY);        //DONE
+        void drawPlayer(int posX, int posY);        // DONE
         void drawPickup(int posX, int posY);        // DONE
         void drawEnemy(int posX, int posY);         // DONE
-        void drawMovDoor(int posX, int posY)
+        void drawMovDoor(int posX, int posY);       // DONE
+        void drawUniqueDoor(int posX, int posY);    // DONE
+        void drawScore(int posX, int posY, int value)
         {
-        };
-        void drawUniqueDoor(int posX, int posY)
-        {
-        };
-        void setGame(std::shared_ptr<IGame> game)
-        {
+            (void) posX;
+            (void) posY;
+            (void) value;
         };
 
         // ncurses functions
@@ -54,6 +59,7 @@ class NCurses : public IGfx {
 
         void    printInsideWindow(WINDOW *window, int posX, int posY, const char *string);
         void    getScreenSize(void);
+        void    initColors(void);
 
     private:
         int _screen_width;
@@ -62,11 +68,11 @@ class NCurses : public IGfx {
         int _nb_games;
         int _nb_libs;
 
-        std::vector<int, int> _games;
-        std::vector<int, int> _libraries;
+        // std::vector<int, int> _games;
+        // std::vector<int, int> _libraries;
 
-        std::vector<std::string, int> _game_selected;
-        std::vector<std::string, int> _lib_selected;
+        // std::vector<std::string, int> _game_selected;
+        // std::vector<std::string, int> _lib_selected;
 };
 
 #endif /* !NCURSES_HPP_ */
