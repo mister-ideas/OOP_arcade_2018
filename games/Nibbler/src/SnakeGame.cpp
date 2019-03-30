@@ -5,7 +5,7 @@
 ** Snake
 */
 
-#include "SnakeGame.hpp"
+#include "../include/SnakeGame.hpp"
 
 extern "C"
 {

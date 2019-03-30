@@ -8,9 +8,8 @@
 #ifndef SNAKEGAME_HPP_
 #define SNAKEGAME_HPP_
 
-#include "IGame.hpp"
-#include "Map.hpp"
-#include "game.hpp"
+#include "../../include/IGame.hpp"
+#include "../../include/Map.hpp"
 #include <memory>
 
 class SnakeGame : public IGame {
