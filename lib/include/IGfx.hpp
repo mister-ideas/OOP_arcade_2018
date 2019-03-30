@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "../../include/Map.hpp"
+#include "../../games/include/Map.hpp"
 
 class IGfx {
     public:

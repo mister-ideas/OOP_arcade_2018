@@ -8,7 +8,7 @@
 #ifndef IGAME_HPP_
 #define IGAME_HPP_
 
-#include "../../include/Map.hpp"
+#include "../../games/include/Map.hpp"
 
 class IGame {
     public:

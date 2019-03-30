@@ -6,8 +6,8 @@
 */
 
 #include <iostream>
-#include "Core.hpp"
-#include "Error.hpp"
+#include "../include/Core.hpp"
+#include "../include/Error.hpp"
 
 int main(int ac, char **av)
 {
