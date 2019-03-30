@@ -21,7 +21,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJ)
 			$(CXX) $(CXXFLAGS) $(SRC) -lncurses -shared -fPIC -o $(NAME)
-			mv ../$(NAME)
+			mv $(NAME) ../
 
 clean:
 			$(RM) $(OBJ)

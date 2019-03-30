@@ -7,7 +7,8 @@
 
 SRC_DIR=	src/
 
-SRC=		$(SRC_DIR)SFML.cpp
+SRC=		$(SRC_DIR)SFML.cpp			\
+			../../$(SRC_DIR)Error.cpp
 
 OBJ=		$(SRC:.cpp=.o)
 
@@ -20,7 +21,7 @@ CPPFLAGS=	-I .
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-			$(CXX) $(CXXFLAGS) $(SRC) -lsfml-window -shared -fPIC -o $(NAME)
+			$(CXX) $(CXXFLAGS) $(SRC) -lsfml-graphics -shared -fPIC -o $(NAME)
 			mv $(NAME) ../
 
 clean:

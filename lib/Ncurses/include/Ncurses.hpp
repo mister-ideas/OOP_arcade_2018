@@ -13,13 +13,13 @@
 #include "../../include/IGfx.hpp"
 #include "../../../games/include/IGame.hpp"
 
-class NCurses : public IGfx {
+class Ncurses : public IGfx {
     public:
         enum GAMES {
             SELECTED,
             NOT_SELECTED
         };
-        NCurses() = default;
+        Ncurses() = default;
 
         // interface
         void createWindow()

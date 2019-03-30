@@ -8,7 +8,7 @@
 #ifndef SFML_HPP_
 #define SFML_HPP_
 
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include "../../include/IGfx.hpp"
 
 class SFML : public IGfx {
@@ -36,8 +36,11 @@ class SFML : public IGfx {
 
     private:
         std::vector<std::string> _games;
-        sf::Window _window;
+        sf::RenderWindow _window;
         sf::Event _event;
+
+        sf::Font _titleFont;
+        sf::Font _textFont;
 };
 
 #endif /* !SFML_HPP_ */

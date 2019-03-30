@@ -8,7 +8,15 @@
 #include <string.h>
 #include "../include/Ncurses.hpp"
 
-int NCurses::menu(std::vector<std::string> games)
+extern "C"
+{
+    std::unique_ptr<IGfx> entryPointGfx()
+    {
+        return std::make_unique<Ncurses>();
+    }
+}
+
+int Ncurses::menu(std::vector<std::string> games)
 {
 //    WINDOW  *mainWindow = NULL;
     WINDOW  *gameWindow = NULL;
@@ -62,7 +70,7 @@ int NCurses::menu(std::vector<std::string> games)
     return (0);
 }
 
-void NCurses::initColors(void)
+void Ncurses::initColors(void)
 {
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -71,40 +79,40 @@ void NCurses::initColors(void)
     init_pair(4, COLOR_YELLOW, COLOR_BLACK);
 }
 
-void NCurses::clear(void)
+void Ncurses::clear(void)
 {
     erase();
 }
 
-void NCurses::drawWall(int posX, int posY)
+void Ncurses::drawWall(int posX, int posY)
 {
     char    wall = ACS_CKBOARD;
 
     mvprintw(posY, posX, &wall);
 }
 
-void NCurses::drawPlayer(int posX, int posY)
+void Ncurses::drawPlayer(int posX, int posY)
 {
     char    player = 'O';
 
     mvprintw(posY, posX, &player);
 }
 
-void NCurses::drawPickup(int posX, int posY)
+void Ncurses::drawPickup(int posX, int posY)
 {
     char    pickup = ACS_DIAMOND;
 
     mvprintw(posY, posX, &pickup);
 }
 
-void NCurses::drawEnemy(int posX, int posY)
+void Ncurses::drawEnemy(int posX, int posY)
 {
     char    enemy = '#';
 
     mvprintw(posY, posX, &enemy);
 }
 
-void NCurses::drawMovDoor(int posX, int posY)
+void Ncurses::drawMovDoor(int posX, int posY)
 {
     char    wall = ACS_CKBOARD;
 
@@ -113,7 +121,7 @@ void NCurses::drawMovDoor(int posX, int posY)
     attroff(COLOR_PAIR(2));
 }
 
-void NCurses::drawUniqueDoor(int posX, int posY)
+void Ncurses::drawUniqueDoor(int posX, int posY)
 {
     char    wall = ACS_CKBOARD;
 
@@ -123,30 +131,30 @@ void NCurses::drawUniqueDoor(int posX, int posY)
 }
 
 /*
-** NCURSES ONLY
+** Ncurses ONLY
 */
 
-WINDOW *NCurses::createMainWindow(int posX, int posY, int width, int height)
+WINDOW *Ncurses::createMainWindow(int posX, int posY, int width, int height)
 {
     WINDOW  *window = newwin(height, width, posY, posX);
 
     return (window);
 }
 
-WINDOW *NCurses::createSubWindow(WINDOW *main_window, int posX, int posY, int width, int height)
+WINDOW *Ncurses::createSubWindow(WINDOW *main_window, int posX, int posY, int width, int height)
 {
     WINDOW  *window = subwin(main_window, height, width, posY, posX);
 
     return (window);
 }
 
-void NCurses::printInsideWindow(WINDOW *window, int posX, int posY, const char *string)
+void Ncurses::printInsideWindow(WINDOW *window, int posX, int posY, const char *string)
 {
     mvwprintw(window, posY, posX, string);
     wrefresh(window);
 }
 
-void NCurses::getScreenSize(void)
+void Ncurses::getScreenSize(void)
 {
     int row = 0;
     int cols = 0;
@@ -156,7 +164,7 @@ void NCurses::getScreenSize(void)
     _screen_width = cols;
 }
 
-// NCurses::~NCurses(void)
+// Ncurses::~Ncurses(void)
 // {
 // 	endwin();
 // }
