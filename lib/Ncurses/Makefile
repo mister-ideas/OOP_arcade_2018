@@ -13,20 +13,21 @@ OBJ=		$(SRC:.cpp=.o)
 
 NAME=		lib_arcade_ncurses.so
 
-CXXFLAGS=	-Wall -Wextra -Werror -std=c++17 -lncurses
+CXXFLAGS=	-Wall -Wextra -Werror -std=c++17
 
 CPPFLAGS=	-I .
 
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-			$(CC) $(CXXFLAGS) $(SRC) -shared -fPIC -o $(NAME)
+			$(CXX) $(CXXFLAGS) $(SRC) -lncurses -shared -fPIC -o $(NAME)
+			mv ../$(NAME)
 
 clean:
 			$(RM) $(OBJ)
 
 fclean:		clean
-			$(RM) $(NAME)
+			$(RM) ../$(NAME)
 
 re:			fclean all
 
