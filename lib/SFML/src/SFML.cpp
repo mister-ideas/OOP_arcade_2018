@@ -29,18 +29,50 @@ int SFML::menu(std::vector<std::string> &games)
 
     createWindow();
 
-    if (!_titleFont.loadFromFile("../../ressources/font/XpressiveRegular.ttf"))
+    if (!_titleFont.loadFromFile("lib/ressources/font/heav.ttf"))
         exit(84);
-    if (!_textFont.loadFromFile("remachinescript.ttf"))
+    if (!_textFont.loadFromFile("lib/ressources/font/remachinescript.ttf"))
+        exit(84);
+    if (!_baseFont.loadFromFile("lib/ressources/font/xpressiveregular.ttf"))
         exit(84);
 
-    sf::RectangleShape menuRect(sf::Vector2f(200.f, 50.f));
-    menuRect.setPosition(sf::Vector2f(210.f, 305.f));
-    menuRect.setFillColor(sf::Color::Cyan);
-    menuRect.setOutlineThickness(5.f);
-    menuRect.setOutlineColor(sf::Color::Blue);
+    sf::Text title;
+    title.setFont(_titleFont);
+    title.setString("Arcade");
+    title.setPosition(sf::Vector2f(180.f, 30.f));
+    title.setCharacterSize(80);
+    title.setFillColor(sf::Color::Blue);
+    title.setOutlineThickness(2.f);
+    title.setOutlineColor(sf::Color::White);
+
+    sf::Text textChoose;
+    textChoose.setFont(_textFont);
+    textChoose.setString("Choose your game!");
+    textChoose.setPosition(sf::Vector2f(175.f, 120.f));
+    textChoose.setCharacterSize(60);
+    textChoose.setOutlineThickness(2.f);
+    textChoose.setOutlineColor(sf::Color::Black);
+
+    sf::Text textGame;
+    textGame.setFont(_baseFont);
+    textGame.setPosition(sf::Vector2f(100.f, 308.f));
+    textGame.setCharacterSize(30);
+    textGame.setOutlineThickness(2.f);
+    textGame.setOutlineColor(sf::Color::Black);
+
+    sf::Texture backTexture;
+    if (!backTexture.loadFromFile("lib/ressources/img/arcade.jpg"))
+        exit(84);
+    sf::Sprite backSprite(backTexture);
+
+    sf::RectangleShape menuRect(sf::Vector2f(614.f, 50.f));
+    menuRect.setPosition(sf::Vector2f(3.f, 305.f));
+    menuRect.setFillColor(sf::Color::Transparent);
+    menuRect.setOutlineThickness(3.f);
+    menuRect.setOutlineColor(sf::Color::Cyan);
 
     while (_window.isOpen()) {
+        _window.clear(sf::Color::Black);
         while (_window.pollEvent(_event)) {
             switch (_event.type) {
                 case sf::Event::Closed:
@@ -63,21 +95,26 @@ int SFML::menu(std::vector<std::string> &games)
                     break;
             }
         }
-        _window.clear(sf::Color::Black);
+        _window.draw(backSprite);
         _window.draw(menuRect);
+        _window.draw(title);
+        _window.draw(textChoose);
+        textGame.setString(games[choice]);
+        _window.draw(textGame);
+
         _window.display();
     }
     return 0;
 }
 
-void SFML::menuUp(size_t choice) const noexcept
+void SFML::menuUp(size_t &choice) const noexcept
 {
     choice++;
     if (choice >= _games.size())
         choice = 0;
 }
 
-void SFML::menuDown(size_t choice) const noexcept
+void SFML::menuDown(size_t &choice) const noexcept
 {
     if (choice == 0)
         choice = _games.size() - 1;

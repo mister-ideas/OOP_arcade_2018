@@ -18,8 +18,8 @@ class SFML : public IGfx {
 
         void createWindow() final;
         int menu(std::vector<std::string> &games) final;
-        void menuUp(size_t choice) const noexcept;
-        void menuDown(size_t choice) const noexcept;
+        void menuUp(size_t &choice) const noexcept;
+        void menuDown(size_t &choice) const noexcept;
 
         void clear() final;
         void drawMap(std::shared_ptr<Map> map) final;
@@ -41,6 +41,7 @@ class SFML : public IGfx {
 
         sf::Font _titleFont;
         sf::Font _textFont;
+        sf::Font _baseFont;
 };
 
 #endif /* !SFML_HPP_ */
