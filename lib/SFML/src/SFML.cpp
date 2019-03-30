@@ -81,6 +81,7 @@ int SFML::menu(std::vector<std::string> &games)
                 case sf::Event::KeyPressed:
                     switch (_event.key.code) {
                         case sf::Keyboard::Return:
+                            _window.display();
                             return choice;
                         case sf::Keyboard::Up:
                             menuUp(choice);
