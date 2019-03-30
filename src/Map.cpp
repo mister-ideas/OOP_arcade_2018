@@ -27,7 +27,7 @@ Map::ENTITY Map::getEntityPos(int x, int y) const
     return _map[y - 1][x - 1];
 }
 
-void Map::setEntityPos(int x, int y, Map::ENTITY &type)
+void Map::setEntityPos(int x, int y, const Map::ENTITY &type)
 {
     if (x <= 0 || x > _width)
         throw Error("Requested X position in map is invalid");

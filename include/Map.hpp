@@ -27,7 +27,7 @@ class Map {
 		~Map() = default;
 
         Map::ENTITY getEntityPos(int x, int y) const;
-        void setEntityPos(int x, int y, Map::ENTITY &type);
+        void setEntityPos(int x, int y, const Map::ENTITY &type);
 
 	private:
         std::vector<std::vector<Map::ENTITY>> _map;
