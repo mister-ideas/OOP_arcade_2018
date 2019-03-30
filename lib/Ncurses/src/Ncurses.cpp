@@ -10,7 +10,7 @@
 
 int NCurses::menu(std::vector<std::string> games)
 {
-    WINDOW  *mainWindow = NULL;
+//    WINDOW  *mainWindow = NULL;
     WINDOW  *gameWindow = NULL;
     WINDOW  *libWindow = NULL;
     WINDOW  *scoreWindow = NULL;
@@ -22,19 +22,20 @@ int NCurses::menu(std::vector<std::string> games)
     int     game_offset = 1;
 
     initscr();
+    initColors();
     keypad(stdscr, TRUE);
     cbreak();
     getScreenSize();
 
-    mainWindow = createMainWindow(_screen_height, _screen_height, 0, 0);
     // createMainWindow(lines, width, startY, startX)
-    gameWindow = createSubWindow(mainWindow, games.size() + 2, _screen_width - 2, offset, 1);
+//    mainWindow = createMainWindow(_screen_height, _screen_height, 0, 0);
+    gameWindow = createSubWindow(stdscr, games.size() + 2, _screen_width - 2, offset, 1);
     offset += games.size() + 3 + 1;
-    libWindow = createSubWindow(mainWindow, libs.size() + 2, _screen_width - 2, offset, 1);
+    libWindow = createSubWindow(stdscr, libs.size() + 2, _screen_width - 2, offset, 1);
     offset += libs.size() + 3 + 1;
-    scoreWindow = createSubWindow(mainWindow, games.size() + 2, _screen_width - 2, offset, 1);
+    scoreWindow = createSubWindow(stdscr, games.size() + 2, _screen_width - 2, offset, 1);
     offset += games.size() + 3 + 1;
-    usernameWindow = createSubWindow(mainWindow, 3, _screen_width - 2, offset, 1);
+    usernameWindow = createSubWindow(stdscr, 3, _screen_width - 2, offset, 1);
 
     wborder(gameWindow, 0, 0, 0, 0, 0, 0, 0, 0);
     wborder(libWindow, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -43,7 +44,7 @@ int NCurses::menu(std::vector<std::string> games)
 
     printInsideWindow(gameWindow, 0, (_screen_width - strlen("G A M E S")) / 2, "G A M E S");
     for (auto game : games) {
-        printInsideWindow(gameWindow, game_offset + 1, game.length, game.c_str());
+        printInsideWindow(gameWindow, game_offset + 1, game.length(), game.c_str());
     }
 
     printInsideWindow(libWindow, 0, (_screen_width - strlen("L I B R A R I E S")) / 2, "L I B R A R I E S");
@@ -51,16 +52,29 @@ int NCurses::menu(std::vector<std::string> games)
     printInsideWindow(usernameWindow, 0, (_screen_width - strlen("U S E R N A M E")) / 2, "U S E R N A M E");
 
     refresh();
+    wrefresh(gameWindow);
+    wrefresh(libWindow);
+    wrefresh(scoreWindow);
+    wrefresh(usernameWindow);
 
     getch();
     endwin();
+    return (0);
+}
+
+void NCurses::initColors(void)
+{
+    start_color();
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(3, COLOR_BLUE, COLOR_BLACK);
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
 }
 
 void NCurses::clear(void)
 {
     erase();
 }
-
 
 void NCurses::drawWall(int posX, int posY)
 {
@@ -88,6 +102,24 @@ void NCurses::drawEnemy(int posX, int posY)
     char    enemy = '#';
 
     mvprintw(posY, posX, &enemy);
+}
+
+void NCurses::drawMovDoor(int posX, int posY)
+{
+    char    wall = ACS_CKBOARD;
+
+    attron(COLOR_PAIR(2));
+    mvprintw(posY, posX, &wall);
+    attroff(COLOR_PAIR(2));
+}
+
+void NCurses::drawUniqueDoor(int posX, int posY)
+{
+    char    wall = ACS_CKBOARD;
+
+    attron(COLOR_PAIR(4));
+    mvprintw(posY, posX, &wall);
+    attroff(COLOR_PAIR(4));
 }
 
 /*
