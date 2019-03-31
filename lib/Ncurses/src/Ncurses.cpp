@@ -87,7 +87,6 @@ void Ncurses::clear(void)
 void Ncurses::drawWall(int posX, int posY)
 {
     char    wall = ACS_CKBOARD;
-
     mvprintw(posY, posX, &wall);
 }
 
@@ -103,6 +102,15 @@ void Ncurses::drawPickup(int posX, int posY)
     char    pickup = ACS_DIAMOND;
 
     mvprintw(posY, posX, &pickup);
+}
+
+void Ncurses::drawBody(int posX, int posY)
+{
+    char    body = '0';
+
+    attron(COLOR_PAIR(2));
+    mvprintw(posY, posX, &body);
+    attroff(COLOR_PAIR(2));
 }
 
 void Ncurses::drawEnemy(int posX, int posY)
@@ -163,8 +171,3 @@ void Ncurses::getScreenSize(void)
     _screen_height = row;
     _screen_width = cols;
 }
-
-// Ncurses::~Ncurses(void)
-// {
-// 	endwin();
-// }

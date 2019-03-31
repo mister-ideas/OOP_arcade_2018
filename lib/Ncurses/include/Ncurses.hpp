@@ -42,6 +42,7 @@ class Ncurses : public IGfx {
 
         void drawWall(int posX, int posY);          // DONE
         void drawPlayer(int posX, int posY);        // DONE
+	void drawBody(int posX, int posY);          // DONE
         void drawPickup(int posX, int posY);        // DONE
         void drawEnemy(int posX, int posY);         // DONE
         void drawMovDoor(int posX, int posY);       // DONE
