@@ -32,7 +32,7 @@ class SFML : public IGfx {
         void drawEnemy(int posX, int posY) final;
         void drawMovDoor(int posX, int posY) final;
         void drawUniqueDoor(int posX, int posY) final;
-        void drawScore(int posX, int posY, int value);
+        void drawScore(int posX, int posY, int value) final;
 
     private:
         std::vector<std::string> _games;

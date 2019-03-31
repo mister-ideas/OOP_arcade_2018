@@ -5,6 +5,7 @@
 ** SFML
 */
 
+#include <iostream>
 #include "../include/SFML.hpp"
 #include "../../../include/Error.hpp"
 
@@ -18,7 +19,7 @@ extern "C"
 
 void SFML::createWindow()
 {
-    _window.create(sf::VideoMode(620, 660), "Arcade");
+    _window.create(sf::VideoMode(620, 700), "Arcade");
     _window.setFramerateLimit(60);
 }
 
@@ -35,6 +36,11 @@ int SFML::menu(std::vector<std::string> &games)
         exit(84);
     if (!_baseFont.loadFromFile("lib/ressources/font/xpressiveregular.ttf"))
         exit(84);
+
+    sf::Texture backTexture;
+    if (!backTexture.loadFromFile("lib/ressources/img/arcade.jpg"))
+        exit(84);
+    sf::Sprite backSprite(backTexture);
 
     sf::Text title;
     title.setFont(_titleFont);
@@ -55,24 +61,19 @@ int SFML::menu(std::vector<std::string> &games)
 
     sf::Text textGame;
     textGame.setFont(_baseFont);
-    textGame.setPosition(sf::Vector2f(100.f, 308.f));
+    textGame.setPosition(sf::Vector2f(100.f, 330.f));
     textGame.setCharacterSize(30);
     textGame.setOutlineThickness(2.f);
     textGame.setOutlineColor(sf::Color::Black);
 
-    sf::Texture backTexture;
-    if (!backTexture.loadFromFile("lib/ressources/img/arcade.jpg"))
-        exit(84);
-    sf::Sprite backSprite(backTexture);
-
     sf::RectangleShape menuRect(sf::Vector2f(614.f, 50.f));
-    menuRect.setPosition(sf::Vector2f(3.f, 305.f));
+    menuRect.setPosition(sf::Vector2f(0.f, 330.f));
     menuRect.setFillColor(sf::Color::Transparent);
-    menuRect.setOutlineThickness(3.f);
+    menuRect.setOutlineThickness(-3.f);
     menuRect.setOutlineColor(sf::Color::Cyan);
 
     while (_window.isOpen()) {
-        _window.clear(sf::Color::Black);
+        clear();
         while (_window.pollEvent(_event)) {
             switch (_event.type) {
                 case sf::Event::Closed:
@@ -81,7 +82,6 @@ int SFML::menu(std::vector<std::string> &games)
                 case sf::Event::KeyPressed:
                     switch (_event.key.code) {
                         case sf::Keyboard::Return:
-                            _window.display();
                             return choice;
                         case sf::Keyboard::Up:
                             menuUp(choice);
@@ -139,47 +139,96 @@ void SFML::getEvents(IGfx::ACTION &action)
 
 void SFML::clear()
 {
-    return;
+    _window.clear(sf::Color::Black);
 }
 
 void SFML::drawMap(std::shared_ptr<Map> map)
 {
-    (void)map;
-    return;
+    try {
+        sf::Texture backTexture;
+        if (!backTexture.loadFromFile("lib/ressources/img/arcade2.jpg"))
+            exit(84);
+        sf::Sprite backSprite(backTexture);
+        _window.draw(backSprite);
+
+        for (int i = 0; i < map->getHeight(); i++) {
+            for (int j = 0; j < map->getWidth(); j++) {
+                switch (map->getEntityPos(j + 1, i + 1)) {
+                    case Map::ENTITY::WALL:
+                        drawWall(j, i);
+                        break;
+                    case Map::ENTITY::PLAYER:
+                        drawPlayer(j, i);
+                        break;
+                    case Map::ENTITY::BODY:
+                        drawBody(j, i);
+                        break;
+                    case Map::ENTITY::PICKUP:
+                        drawPickup(j, i);
+                        break;
+                    case Map::ENTITY::ENEMY:
+                        drawEnemy(j, i);
+                        break;
+                    case Map::ENTITY::MOV_DOOR:
+                        drawMovDoor(j, i);
+                        break;
+                    case Map::ENTITY::UNIQUE_DOOR:
+                        drawUniqueDoor(j, i);
+                        break;
+                    default:
+                        drawWall(j, i);
+                        drawEnemy(j, i);
+                        break;
+                }
+            }
+        }
+        _window.display();
+        return;
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        exit(84);
+    }
 }
 
 void SFML::drawWall(int posX, int posY)
 {
-    (void)posX;
-    (void)posY;
-    return;
+    sf::RectangleShape wall(sf::Vector2f(20.f, 20.f));
+    wall.setPosition(sf::Vector2f((float)posX * 20, (float)(posY * 20) + 40));
+    wall.setFillColor(sf::Color::Blue);
+    _window.draw(wall);
 }
 
 void SFML::drawPlayer(int posX, int posY)
 {
-    (void)posX;
-    (void)posY;
-    return;
+    sf::RectangleShape player(sf::Vector2f(20.f, 20.f));
+    player.setPosition(sf::Vector2f((float)posX * 20, (float)(posY * 20) + 40));
+    player.setFillColor(sf::Color::Cyan);
+    _window.draw(player);
 }
 
 void SFML::drawBody(int posX, int posY)
 {
-    (void)posX;
-    (void)posY;
-    return;
+    sf::RectangleShape body(sf::Vector2f(20.f, 20.f));
+    body.setPosition(sf::Vector2f((float)posX * 20, (float)(posY * 20) + 40));
+    body.setFillColor(sf::Color::Magenta);
+    _window.draw(body);
 }
 
 void SFML::drawPickup(int posX, int posY)
 {
-    (void)posX;
-    (void)posY;
+    sf::CircleShape pickup(2.f);
+    pickup.setPosition(sf::Vector2f((float)(posX * 20) + 8, (float)(posY * 20) + 48));
+    pickup.setFillColor(sf::Color::Yellow);
+    _window.draw(pickup);
     return;
 }
 
 void SFML::drawEnemy(int posX, int posY)
 {
-    (void)posX;
-    (void)posY;
+    sf::CircleShape enemy(5.f);
+    enemy.setPosition(sf::Vector2f((float)(posX * 20) + 5, (float)(posY * 20) + 45));
+    enemy.setFillColor(sf::Color::Red);
+    _window.draw(enemy);
     return;
 }
 
@@ -199,8 +248,11 @@ void SFML::drawUniqueDoor(int posX, int posY)
 
 void SFML::drawScore(int posX, int posY, int value)
 {
-    (void)posX;
-    (void)posY;
-    (void)value;
+    sf::Text textScore;
+    textScore.setFont(_baseFont);
+    textScore.setPosition(sf::Vector2f((float)posX, (float)posY));
+    textScore.setString("Score: " + std::to_string(value));
+    textScore.setCharacterSize(30);
+    _window.draw(textScore);
     return;
 }
