@@ -128,6 +128,7 @@ void Core::start()
 
 void Core::nextGfx() noexcept
 {
+    _currentGfx.release();
     _currentGfxPos++;
     if (_currentGfxPos > _gfxPaths.size() - 1)
         _currentGfxPos = 0;
@@ -137,6 +138,7 @@ void Core::nextGfx() noexcept
 
 void Core::prevGfx() noexcept
 {
+    _currentGfx.release();
     if (_currentGfxPos == 0)
         _currentGfxPos = _gfxPaths.size() - 1;
     else
@@ -147,6 +149,8 @@ void Core::prevGfx() noexcept
 
 void Core::nextGame() noexcept
 {
+    if (_currentGame)
+        _currentGame.release();
     _currentGamePos++;
     if (_currentGamePos > _gamesPaths.size() - 1)
         _currentGamePos = 0;
@@ -155,6 +159,8 @@ void Core::nextGame() noexcept
 
 void Core::prevGame() noexcept
 {
+    if (_currentGame)
+        _currentGame.release();
     if (_currentGamePos == 0)
         _currentGamePos = _gamesPaths.size() - 1;
     else
