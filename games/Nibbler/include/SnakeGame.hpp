@@ -16,29 +16,29 @@
 #include <memory>
 
 class SnakeGame : public IGame {
-public:
-    SnakeGame();
-    ~SnakeGame() = default;
-    void generateMap();
+    public:
+        SnakeGame();
+        ~SnakeGame() = default;
+        void generateMap();
 
-    void play();
-    void MoveUp();
-    void MoveDown();
-    void MoveLeft();
-    void MoveRight();
-    bool updateMap();
+        void play();
+        void MoveUp();
+        void MoveDown();
+        void MoveLeft();
+        void MoveRight();
+        bool updateMap();
 
-    int getScore();
-    std::shared_ptr<Map> getMap();
+        int getScore();
+        std::shared_ptr<Map> getMap();
 
-private:
-    std::shared_ptr<Map> _map;
-    Board _brd;
-    Snake _snake;
-    Goal _goal;
-    Location _delta_loc;
-    bool _isGameOver;
-    int _intScore;
-}
+    private:
+        std::shared_ptr<Map> _map;
+        Board _brd;
+        Snake _snake;
+        Goal _goal;
+        Location _delta_loc;
+        bool _isGameOver;
+        int _intScore;
+};
 
 #endif /* !SNAKEGAME_HPP_ */

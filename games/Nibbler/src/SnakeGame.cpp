@@ -18,10 +18,10 @@ extern "C"
 SnakeGame::SnakeGame()
     : _brd()
     , _snake({ 15, 15 })
+    , _goal(_brd, _snake)
     , _delta_loc({ 1, 0 })
     , _isGameOver(false)
     , _intScore(0)
-    , _goal(_brd, _snake)
 {
     _map = std::make_shared<Map>();
     _brd = Board(_map);
