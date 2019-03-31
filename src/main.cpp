@@ -18,7 +18,7 @@ int main(int ac, char **av)
         Core *core = new Core();
         core->loadGfx(arg);
         return 0;
-    } catch (Error &e) {
+    } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
         return 84;
     }

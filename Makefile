@@ -8,7 +8,6 @@
 SRC_DIR=	src/
 
 SRC=		$(SRC_DIR)Core.cpp		\
-			$(SRC_DIR)Error.cpp		\
 			$(SRC_DIR)main.cpp
 
 OBJ=		$(SRC:.cpp=.o)
@@ -25,23 +24,20 @@ core: 		$(OBJ)
 			$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $(NAME) $(OBJ)
 
 games:
-			make -C games/Test/
+			make -C games/Nibbler
 
 graphicals:
-			make -C lib/Ncurses/
 			make -C lib/SFML/
 
 clean:
 			$(RM) $(OBJ)
-			make clean -C lib/Ncurses/
 			make clean -C lib/SFML/
-			make clean -C games/Test/
+			make clean -C games/Nibbler
 
 fclean: 	clean
 			$(RM) $(NAME)
-			make fclean -C lib/Ncurses/
 			make fclean -C lib/SFML/
-			make fclean -C games/Test/
+			make fclean -C games/Nibbler
 
 re: 		fclean all
 

@@ -7,12 +7,16 @@
 
 SRC_DIR=	src/
 
-SRC=		$(SRC_DIR)SFML.cpp				\
-			../../games/$(SRC_DIR)Map.cpp
+SRC=		$(SRC_DIR)Snake.cpp			\
+			$(SRC_DIR)SnakeGame.cpp		\
+			$(SRC_DIR)Goal.cpp			\
+			$(SRC_DIR)Location.cpp		\
+			$(SRC_DIR)Board.cpp			\
+			../$(SRC_DIR)Map.cpp
 
 OBJ=		$(SRC:.cpp=.o)
 
-NAME=		lib_arcade_sfml.so
+NAME=		lib_arcade_nibbler.so
 
 CXXFLAGS=	-Wall -Wextra -Werror -std=c++17
 
@@ -21,7 +25,7 @@ CPPFLAGS=	-I .
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-			$(CXX) $(CXXFLAGS) $(SRC) -lsfml-graphics -shared -fPIC -o $(NAME)
+			$(CXX) $(CXXFLAGS) $(SRC) -shared -fPIC -o $(NAME)
 			mv $(NAME) ../
 
 clean:
