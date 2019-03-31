@@ -66,7 +66,7 @@ int SFML::menu(std::vector<std::string> &games)
     textGame.setOutlineThickness(2.f);
     textGame.setOutlineColor(sf::Color::Black);
 
-    sf::RectangleShape menuRect(sf::Vector2f(614.f, 50.f));
+    sf::RectangleShape menuRect(sf::Vector2f(620.f, 50.f));
     menuRect.setPosition(sf::Vector2f(0.f, 330.f));
     menuRect.setFillColor(sf::Color::Transparent);
     menuRect.setOutlineThickness(-3.f);
