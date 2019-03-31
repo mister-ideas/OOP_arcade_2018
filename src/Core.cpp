@@ -8,6 +8,8 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <chrono>
+#include <thread>
 #include <dirent.h>
 #include "../include/Core.hpp"
 #include "../include/Error.hpp"
@@ -50,10 +52,9 @@ void Core::loadGfx(std::string &path)
     if (it == _gfxPaths.end())
         throw Error("Invalid path or requested graphics library not in lib folder");
     auto loader = std::make_unique<LibLoader<IGfx>>(path);
-    _currentGfxPos = std::distance(_gfxPaths.begin(), it);
     _currentGfx = loader->getClass("entryPointGfx");
+    _currentGfxPos = std::distance(_gfxPaths.begin(), it);
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
-    start();
 }
 
 void Core::loadGame(const std::string &path)
@@ -62,9 +63,10 @@ void Core::loadGame(const std::string &path)
     if (it == _gamesPaths.end())
         throw Error("Requested game is not in games folder");
     auto loader = std::make_unique<LibLoader<IGame>>(path);
-    _currentGamePos = std::distance(_gamesPaths.begin(), it);
     _currentGame = loader->getClass("entryPointGame");
+    _currentGamePos = std::distance(_gamesPaths.begin(), it);
     _currentGame->generateMap();
+    start();
 }
 
 void Core::events(IGfx::ACTION &event) noexcept
@@ -112,19 +114,21 @@ void Core::start()
 
     while (inProgress) {
         _currentGfx->clear();
-        _currentGfx->drawMap(_currentGame->getMap());
         _currentGfx->drawScore(100, 2, _currentGame->getScore());
+        _currentGfx->drawMap(_currentGame->getMap());
         _currentGfx->getEvents(action);
         if (action == IGfx::ACTION::EXIT)
             exit(0);
         events(action);
         inProgress = _currentGame->updateMap();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
 }
 
 void Core::nextGfx() noexcept
 {
+    _currentGfx.release();
     _currentGfxPos++;
     if (_currentGfxPos > _gfxPaths.size() - 1)
         _currentGfxPos = 0;
@@ -134,6 +138,7 @@ void Core::nextGfx() noexcept
 
 void Core::prevGfx() noexcept
 {
+    _currentGfx.release();
     if (_currentGfxPos == 0)
         _currentGfxPos = _gfxPaths.size() - 1;
     else
@@ -144,6 +149,8 @@ void Core::prevGfx() noexcept
 
 void Core::nextGame() noexcept
 {
+    if (_currentGame)
+        _currentGame.release();
     _currentGamePos++;
     if (_currentGamePos > _gamesPaths.size() - 1)
         _currentGamePos = 0;
@@ -152,6 +159,8 @@ void Core::nextGame() noexcept
 
 void Core::prevGame() noexcept
 {
+    if (_currentGame)
+        _currentGame.release();
     if (_currentGamePos == 0)
         _currentGamePos = _gamesPaths.size() - 1;
     else

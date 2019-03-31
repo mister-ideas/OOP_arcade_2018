@@ -78,9 +78,10 @@ int SFML::menu(std::vector<std::string> &games)
             switch (_event.type) {
                 case sf::Event::Closed:
                     exit(0);
-                    break;
                 case sf::Event::KeyPressed:
                     switch (_event.key.code) {
+                        case sf::Keyboard::Escape:
+                            exit(0);
                         case sf::Keyboard::Return:
                             return choice;
                         case sf::Keyboard::Up:
@@ -130,6 +131,45 @@ void SFML::getEvents(IGfx::ACTION &action)
             case sf::Event::Closed:
                 action = IGfx::ACTION::EXIT;
                 break;
+            case sf::Event::KeyPressed:
+                switch (_event.key.code) {
+                    case sf::Keyboard::Escape:
+                        action = IGfx::ACTION::EXIT;
+                        break;
+                    case sf::Keyboard::Z:
+                        action = IGfx::ACTION::MOVE_UP;
+                        break;
+                    case sf::Keyboard::S:
+                        action = IGfx::ACTION::MOVE_DOWN;
+                        break;
+                    case sf::Keyboard::Q:
+                        action = IGfx::ACTION::MOVE_LEFT;
+                        break;
+                    case sf::Keyboard::D:
+                        action = IGfx::ACTION::MOVE_RIGHT;
+                        break;
+                    case sf::Keyboard::Up:
+                        action = IGfx::ACTION::NEXT_GAME;
+                        break;
+                    case sf::Keyboard::Down:
+                        action = IGfx::ACTION::PREV_GAME;
+                        break;
+                    case sf::Keyboard::Left:
+                        action = IGfx::ACTION::PREV_GFX;
+                        break;
+                    case sf::Keyboard::Right:
+                        action = IGfx::ACTION::NEXT_GFX;
+                        break;
+                    case sf::Keyboard::M:
+                        action = IGfx::ACTION::MENU;
+                        break;
+                    case sf::Keyboard::R:
+                        action = IGfx::ACTION::RESTART;
+                        break;
+                    default:
+                        break;
+                }
+                break;
             default:
                 break;
         }
@@ -145,12 +185,6 @@ void SFML::clear()
 void SFML::drawMap(std::shared_ptr<Map> map)
 {
     try {
-        sf::Texture backTexture;
-        if (!backTexture.loadFromFile("lib/ressources/img/arcade2.jpg"))
-            exit(84);
-        sf::Sprite backSprite(backTexture);
-        _window.draw(backSprite);
-
         for (int i = 0; i < map->getHeight(); i++) {
             for (int j = 0; j < map->getWidth(); j++) {
                 switch (map->getEntityPos(j + 1, i + 1)) {
