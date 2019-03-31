@@ -5,6 +5,7 @@
 ** board
 */
 
+#include <iostream>
 #include "../include/Board.hpp"
 
 Board::Board(std::shared_ptr<Map> map) : _map(map)
@@ -13,7 +14,12 @@ Board::Board(std::shared_ptr<Map> map) : _map(map)
 
 void Board::DrawCell(const Location &loc, const Map::ENTITY &entity)
 {
-    _map->setEntityPos(loc.x + 1, loc.y + 1, entity);
+    try {
+        _map->setEntityPos(loc.x + 1, loc.y + 1, entity);
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        exit(84);
+    }
 }
 
 void Board::DrawLine(const Location& start, const Location& delta_loc)
