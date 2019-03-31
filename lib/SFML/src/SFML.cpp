@@ -176,8 +176,6 @@ void SFML::drawMap(std::shared_ptr<Map> map)
                         drawUniqueDoor(j, i);
                         break;
                     default:
-                        drawWall(j, i);
-                        drawEnemy(j, i);
                         break;
                 }
             }
