@@ -44,7 +44,7 @@ Location Snake::GetNextHeadLocation(const Location& loc) const
     return tmpLoc;
 }
 
-Location Snake::GetQueueLocation() const
+Location Snake::GetTailLocation() const
 {
     Location tmpLoc(_list[_nDot - 1].GetLocation());
     return tmpLoc;

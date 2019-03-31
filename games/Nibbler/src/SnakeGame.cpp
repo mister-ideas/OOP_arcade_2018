@@ -65,7 +65,7 @@ bool SnakeGame::updateMap()
 {
     try {
         const Location next = _snake.GetNextHeadLocation(_delta_loc);
-        const Location queue = _snake.GetQueueLocation();
+        const Location tail = _snake.GetTailLocation();
 
         if (!_brd.IsInsideBoard(next)
             || _snake.IsInTileExceptEnd(next) || _isGameOver == true)
@@ -82,7 +82,7 @@ bool SnakeGame::updateMap()
                 _goal.Respawn(_brd, _snake);
                 _goal.Draw(_brd);
             } else
-                _map->setEntityPos(queue.x, queue.y, Map::ENTITY::OTHER);
+                _map->setEntityPos(tail.x, tail.y, Map::ENTITY::OTHER);
         }
         return true;
     } catch (std::exception &e) {

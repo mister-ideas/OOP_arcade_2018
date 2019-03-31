@@ -20,7 +20,7 @@ public:
     void Grow();
     void Draw(Board &brd) const;
     Location GetNextHeadLocation(const Location&) const;
-    Location GetQueueLocation() const;
+    Location GetTailLocation() const;
     bool IsInTileExceptEnd(const Location&) const;
     bool IsInTile(const Location&) const;
 private:
