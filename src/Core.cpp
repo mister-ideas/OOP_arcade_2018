@@ -8,6 +8,8 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <chrono>
+#include <thread>
 #include <dirent.h>
 #include "../include/Core.hpp"
 #include "../include/Error.hpp"
@@ -119,6 +121,7 @@ void Core::start()
             exit(0);
         events(action);
         inProgress = _currentGame->updateMap();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
 }
