@@ -218,7 +218,6 @@ void SFML::drawMap(std::shared_ptr<Map> map)
             }
         }
         _window.display();
-        return;
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
         exit(84);
