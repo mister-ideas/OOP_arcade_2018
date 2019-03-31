@@ -145,12 +145,6 @@ void SFML::clear()
 void SFML::drawMap(std::shared_ptr<Map> map)
 {
     try {
-        sf::Texture backTexture;
-        if (!backTexture.loadFromFile("lib/ressources/img/arcade2.jpg"))
-            exit(84);
-        sf::Sprite backSprite(backTexture);
-        _window.draw(backSprite);
-
         for (int i = 0; i < map->getHeight(); i++) {
             for (int j = 0; j < map->getWidth(); j++) {
                 switch (map->getEntityPos(j + 1, i + 1)) {
