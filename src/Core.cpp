@@ -121,7 +121,7 @@ void Core::start()
             exit(0);
         events(action);
         inProgress = _currentGame->updateMap();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
 }

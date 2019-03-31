@@ -17,8 +17,8 @@ void Goal::Respawn(const Board& brd, const Snake& snake)
 {
     Location newLoc;
     do {
-        newLoc.x = rand() % brd.GetWidth() - 1;
-        newLoc.y = rand() % brd.GetHeight() - 1;
+        newLoc.x = rand() % (brd.GetWidth() - 2) + 1;
+        newLoc.y = rand() % (brd.GetHeight() - 2) + 1;
     } while (snake.IsInTile(newLoc));
     loc = newLoc;
 }
