@@ -13,7 +13,7 @@ int main(int ac, char **av)
 {
     try {
         if (ac != 2)
-            throw Error("Bad number of arguments");
+            throw Error("USAGE: ./arcade path_to_graphics_lib_file (don't forget ./lib/ in the path!)");
         std::string arg = av[1];
         Core *core = new Core();
         core->loadGfx(arg);

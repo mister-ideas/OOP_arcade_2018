@@ -1,0 +1,64 @@
+====================
+       Arcade
+====================
+
+Arcade program with multiples graphics and games libraries.
+USAGE: ./arcade path_to_graphics_lib_file (don't forget ./lib/ in the path!)
+
+*-------*
+|AUTHORS|
+*-------*
+
+Vincent Attali
+Guillaume Deshaies
+Tatiana Relic-De Lima
+
+Interfaces shared with noah.farjon@epitech.eu's group.
+
+*-----------------*
+|USER INTERACTIONS|
+*-----------------*
+
+=======
+IN MENU
+=======
+
+    - Escape
+        leave the program
+    - Enter
+        launch current displayed game
+    - Arrow Up
+        display next available game
+    - Arrow Down
+        display previous available game
+
+=======
+IN GAME
+=======
+
+    - Escape
+        leave the program
+    - Z, Q, S, D
+        to move your character
+    - Arrow Up
+        launch next available game
+    - Arrow Down
+        launch previous available game
+    - Arrow Left
+        launch previous available graphics library
+    - Arrow Right
+        launch next available graphics library
+    - M
+        go back to menu
+    - R
+        restart current selected game
+
+*-----*
+|NOTES|
+*-----*
+
+More informations in ./doc/ folder.
+
+==========================
+Choose your game and play!
+==========================
