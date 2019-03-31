@@ -13,7 +13,7 @@
 
 class SFML : public IGfx {
 	public:
-		SFML() = default;
+		SFML();
 		~SFML() = default;
 
         void createWindow() final;

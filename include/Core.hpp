@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <string>
+#include "../include/LibLoader.hpp"
 #include "../lib/include/IGfx.hpp"
 #include "../games/include/IGame.hpp"
 
@@ -31,6 +32,8 @@ class Core {
 	private:
         std::vector<std::string> _gfxPaths;
         std::vector<std::string> _gamesPaths;
+        std::unique_ptr<LibLoader<IGfx>> _gfxLoader;
+        std::unique_ptr<LibLoader<IGame>> _gameLoader;
         std::unique_ptr<IGfx> _currentGfx;
         std::unique_ptr<IGame> _currentGame;
         size_t _currentGfxPos;

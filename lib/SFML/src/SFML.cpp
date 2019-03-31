@@ -17,17 +17,8 @@ extern "C"
     }
 }
 
-void SFML::createWindow()
+SFML::SFML()
 {
-    _window.create(sf::VideoMode(620, 700), "Arcade");
-    _window.setFramerateLimit(60);
-}
-
-int SFML::menu(std::vector<std::string> &games)
-{
-    _games = games;
-    size_t choice = 0;
-
     createWindow();
 
     if (!_titleFont.loadFromFile("lib/ressources/font/heav.ttf"))
@@ -36,6 +27,18 @@ int SFML::menu(std::vector<std::string> &games)
         exit(84);
     if (!_baseFont.loadFromFile("lib/ressources/font/xpressiveregular.ttf"))
         exit(84);
+}
+
+void SFML::createWindow()
+{
+    _window.create(sf::VideoMode(620, 700), "Arcade");
+    _window.setFramerateLimit(60);
+}
+
+int SFML::menu(std::vector<std::string> &games)
+{
+    (void)games;
+    size_t choice = 0;
 
     sf::Texture backTexture;
     if (!backTexture.loadFromFile("lib/ressources/img/arcade.jpg"))
