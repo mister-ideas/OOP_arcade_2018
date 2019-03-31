@@ -20,12 +20,10 @@ class Ncurses : public IGfx {
             NOT_SELECTED
         };
         Ncurses() = default;
-	~Ncurses() = default;
+        ~Ncurses() = default;
 
         // interface
-        void createWindow()
-        {
-        };
+        void createWindow();
         int menu(std::vector<std::string> &games);
         void gfxLoop(IGfx::ACTION &action)
         {
@@ -43,7 +41,7 @@ class Ncurses : public IGfx {
 
         void drawWall(int posX, int posY);          // DONE
         void drawPlayer(int posX, int posY);        // DONE
-	void drawBody(int posX, int posY);          // DONE
+        void drawBody(int posX, int posY);          // DONE
         void drawPickup(int posX, int posY);        // DONE
         void drawEnemy(int posX, int posY);         // DONE
         void drawMovDoor(int posX, int posY);       // DONE
@@ -56,10 +54,6 @@ class Ncurses : public IGfx {
         };
 
         // ncurses functions
-        WINDOW  *createMainWindow(int posX, int posY, int width, int height);
-        WINDOW  *createSubWindow(WINDOW *main_window, int posX, int posY, int width, int height);
-
-        void    printInsideWindow(WINDOW *window, int posX, int posY, const char *string);
         void    getScreenSize(void);
         void    initColors(void);
 

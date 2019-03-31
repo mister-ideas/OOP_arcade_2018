@@ -16,6 +16,15 @@ extern "C"
     }
 }
 
+void Ncurses::createWindow()
+{
+    initscr();
+    initColors();
+    keypad(stdscr, TRUE);
+    cbreak();
+    getScreenSize();
+}
+
 int Ncurses::menu(std::vector<std::string> &games)
 {
 //    WINDOW  *mainWindow = NULL;
@@ -27,37 +36,43 @@ int Ncurses::menu(std::vector<std::string> &games)
     std::vector<std::string> libs;
 
     int     offset = 1;
-    int     game_offset = 1;
+    int     game_offset = 2;
 
-    initscr();
-    initColors();
-    keypad(stdscr, TRUE);
-    cbreak();
-    getScreenSize();
+    createWindow();
 
     // createMainWindow(lines, width, startY, startX)
 //    mainWindow = createMainWindow(_screen_height, _screen_height, 0, 0);
-    gameWindow = createSubWindow(stdscr, games.size() + 2, _screen_width - 2, offset, 1);
-    offset += games.size() + 3 + 1;
-    libWindow = createSubWindow(stdscr, libs.size() + 2, _screen_width - 2, offset, 1);
-    offset += libs.size() + 3 + 1;
-    scoreWindow = createSubWindow(stdscr, games.size() + 2, _screen_width - 2, offset, 1);
-    offset += games.size() + 3 + 1;
-    usernameWindow = createSubWindow(stdscr, 3, _screen_width - 2, offset, 1);
+    gameWindow = subwin(stdscr, games.size() + 2 + 2, _screen_width - 2, offset, 1);
+    offset += games.size() + 3 + 1 + 1;
+    libWindow = subwin(stdscr, libs.size() + 2, _screen_width - 2, offset, 1);
+    offset += libs.size() + 3;
+    scoreWindow = subwin(stdscr, games.size() + 2, _screen_width - 2, offset, 1);
+    offset += games.size() + 3;
+    usernameWindow = subwin(stdscr, 3, _screen_width - 2, offset, 1);
 
     wborder(gameWindow, 0, 0, 0, 0, 0, 0, 0, 0);
     wborder(libWindow, 0, 0, 0, 0, 0, 0, 0, 0);
     wborder(scoreWindow, 0, 0, 0, 0, 0, 0, 0, 0);
     wborder(usernameWindow, 0, 0, 0, 0, 0, 0, 0, 0);
 
-    printInsideWindow(gameWindow, 0, (_screen_width - strlen("G A M E S")) / 2, "G A M E S");
-    for (auto game : games) {
-        printInsideWindow(gameWindow, game_offset + 1, game.length(), game.c_str());
+    mvwprintw(gameWindow, 0, (_screen_width - strlen("G A M E S")) / 2, "G A M E S");
+    for (size_t i = 0; i < games.size(); ++i) {
+        std::string game_string = games[i];
+        const char  *game = game_string.c_str();
+
+        if (i == 0) {
+            wattron(gameWindow, A_STANDOUT);
+            mvwprintw(gameWindow, game_offset, (_screen_width - strlen(game)) / 2, game);
+            wattroff(gameWindow, A_STANDOUT);
+        } else {
+            mvwprintw(gameWindow, game_offset, (_screen_width - strlen(game)) / 2, game);
+        }
+        ++game_offset;
     }
 
-    printInsideWindow(libWindow, 0, (_screen_width - strlen("L I B R A R I E S")) / 2, "L I B R A R I E S");
-    printInsideWindow(scoreWindow, 0, (_screen_width - strlen("S C O R E S")) / 2, "S C O R E S");
-    printInsideWindow(usernameWindow, 0, (_screen_width - strlen("U S E R N A M E")) / 2, "U S E R N A M E");
+    mvwprintw(libWindow, 0, (_screen_width - strlen("L I B R A R I E S")) / 2, "L I B R A R I E S");
+    mvwprintw(scoreWindow, 0, (_screen_width - strlen("S C O R E S")) / 2, "S C O R E S");
+    mvwprintw(usernameWindow, 0, (_screen_width - strlen("U S E R N A M E")) / 2, "U S E R N A M E");
 
     refresh();
     wrefresh(gameWindow);
@@ -68,15 +83,6 @@ int Ncurses::menu(std::vector<std::string> &games)
     getch();
     endwin();
     return (0);
-}
-
-void Ncurses::initColors(void)
-{
-    start_color();
-    init_pair(1, COLOR_RED, COLOR_BLACK);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    init_pair(3, COLOR_BLUE, COLOR_BLACK);
-    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
 }
 
 void Ncurses::clear(void)
@@ -142,26 +148,6 @@ void Ncurses::drawUniqueDoor(int posX, int posY)
 ** Ncurses ONLY
 */
 
-WINDOW *Ncurses::createMainWindow(int posX, int posY, int width, int height)
-{
-    WINDOW  *window = newwin(height, width, posY, posX);
-
-    return (window);
-}
-
-WINDOW *Ncurses::createSubWindow(WINDOW *main_window, int posX, int posY, int width, int height)
-{
-    WINDOW  *window = subwin(main_window, height, width, posY, posX);
-
-    return (window);
-}
-
-void Ncurses::printInsideWindow(WINDOW *window, int posX, int posY, const char *string)
-{
-    mvwprintw(window, posY, posX, string);
-    wrefresh(window);
-}
-
 void Ncurses::getScreenSize(void)
 {
     int row = 0;
@@ -170,4 +156,13 @@ void Ncurses::getScreenSize(void)
     getmaxyx(stdscr, row, cols);
     _screen_height = row;
     _screen_width = cols;
+}
+
+void Ncurses::initColors(void)
+{
+    start_color();
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(3, COLOR_BLUE, COLOR_BLACK);
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
 }
