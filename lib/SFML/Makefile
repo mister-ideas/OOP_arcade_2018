@@ -7,8 +7,8 @@
 
 SRC_DIR=	src/
 
-SRC=		$(SRC_DIR)SFML.cpp			\
-			../../$(SRC_DIR)Error.cpp
+SRC=		$(SRC_DIR)SFML.cpp				\
+			../../games/$(SRC_DIR)Map.cpp
 
 OBJ=		$(SRC:.cpp=.o)
 

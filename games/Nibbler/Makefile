@@ -12,8 +12,7 @@ SRC=		$(SRC_DIR)Snake.cpp			\
 			$(SRC_DIR)Goal.cpp			\
 			$(SRC_DIR)Location.cpp		\
 			$(SRC_DIR)Board.cpp			\
-			../$(SRC_DIR)Map.cpp		\
-			../../$(SRC_DIR)Error.cpp
+			../$(SRC_DIR)Map.cpp
 
 OBJ=		$(SRC:.cpp=.o)
 

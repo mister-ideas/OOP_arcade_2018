@@ -13,9 +13,16 @@
 
 class Error : public std::exception {
     public:
-        Error(const std::string &msg = "N/A");
+        explicit Error(const std::string &msg) : _msg(std::move(msg))
+        {
+        }
+
         ~Error() = default;
-        const char *what() const noexcept;
+
+        const char* what() const noexcept override
+        {
+            return _msg.c_str();
+        }
 
     private:
         std::string _msg;
