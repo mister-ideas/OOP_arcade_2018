@@ -27,28 +27,26 @@ void Ncurses::createWindow()
 
 int Ncurses::menu(std::vector<std::string> &games)
 {
-//    WINDOW  *mainWindow = NULL;
     WINDOW  *gameWindow = NULL;
     WINDOW  *libWindow = NULL;
     WINDOW  *scoreWindow = NULL;
     WINDOW  *usernameWindow = NULL;
 
     std::vector<std::string> libs;
+    char    *username = NULL;
 
     int     offset = 1;
     int     game_offset = 2;
 
     createWindow();
 
-    // createMainWindow(lines, width, startY, startX)
-//    mainWindow = createMainWindow(_screen_height, _screen_height, 0, 0);
     gameWindow = subwin(stdscr, games.size() + 2 + 2, _screen_width - 2, offset, 1);
-    offset += games.size() + 3 + 1 + 1;
-    libWindow = subwin(stdscr, libs.size() + 2, _screen_width - 2, offset, 1);
-    offset += libs.size() + 3;
-    scoreWindow = subwin(stdscr, games.size() + 2, _screen_width - 2, offset, 1);
-    offset += games.size() + 3;
-    usernameWindow = subwin(stdscr, 3, _screen_width - 2, offset, 1);
+    offset += games.size() + 3 + 2;
+    libWindow = subwin(stdscr, libs.size() + 2 + 2, _screen_width - 2, offset, 1);
+    offset += libs.size() + 3 + 2;
+    scoreWindow = subwin(stdscr, games.size() + 2 + 2, _screen_width - 2, offset, 1);
+    offset += games.size() + 3 + 2;
+    usernameWindow = subwin(stdscr, 3 + 2, _screen_width - 2, offset, 1);
 
     wborder(gameWindow, 0, 0, 0, 0, 0, 0, 0, 0);
     wborder(libWindow, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -74,14 +72,17 @@ int Ncurses::menu(std::vector<std::string> &games)
     mvwprintw(scoreWindow, 0, (_screen_width - strlen("S C O R E S")) / 2, "S C O R E S");
     mvwprintw(usernameWindow, 0, (_screen_width - strlen("U S E R N A M E")) / 2, "U S E R N A M E");
 
+    wmove(usernameWindow, 35, 2);
+
     refresh();
     wrefresh(gameWindow);
     wrefresh(libWindow);
     wrefresh(scoreWindow);
     wrefresh(usernameWindow);
 
-    getch();
+    mvwscanw(usernameWindow, 2, 15, username);
     endwin();
+
     return (0);
 }
 
