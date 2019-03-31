@@ -136,6 +136,18 @@ void SFML::getEvents(IGfx::ACTION &action)
                     case sf::Keyboard::Escape:
                         action = IGfx::ACTION::EXIT;
                         break;
+                    case sf::Keyboard::Z:
+                        action = IGfx::ACTION::MOVE_UP;
+                        break;
+                    case sf::Keyboard::S:
+                        action = IGfx::ACTION::MOVE_DOWN;
+                        break;
+                    case sf::Keyboard::Q:
+                        action = IGfx::ACTION::MOVE_LEFT;
+                        break;
+                    case sf::Keyboard::D:
+                        action = IGfx::ACTION::MOVE_RIGHT;
+                        break;
                     case sf::Keyboard::Up:
                         action = IGfx::ACTION::NEXT_GAME;
                         break;
