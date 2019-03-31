@@ -5,6 +5,7 @@
 ** Snake
 */
 
+#include <iostream>
 #include "../include/SnakeGame.hpp"
 
 extern "C"
@@ -62,26 +63,32 @@ void SnakeGame::MoveRight()
 
 bool SnakeGame::updateMap()
 {
-    const Location next = _snake.GetNextHeadLocation(_delta_loc);
-    const Location queue = _snake.GetQueueLocation();
-    if (!_brd.IsInsideBoard(next)
-        || _snake.IsInTileExceptEnd(next) || _isGameOver == true)
-        return false;
-    else {
-        bool eating = next == _goal.GetLocation();
-        if (eating) {
-            _snake.Grow();
-            _intScore += 100;
+    try {
+        const Location next = _snake.GetNextHeadLocation(_delta_loc);
+        const Location queue = _snake.GetQueueLocation();
+
+        if (!_brd.IsInsideBoard(next)
+            || _snake.IsInTileExceptEnd(next) || _isGameOver == true)
+            return false;
+        else {
+            bool eating = next == _goal.GetLocation();
+            if (eating) {
+                _snake.Grow();
+                _intScore += 100;
+            }
+            _snake.MovePos(_delta_loc);
+            _map->setEntityPos(next.x, next.y, Map::ENTITY::PLAYER);
+            if (eating) {
+                _goal.Respawn(_brd, _snake);
+                _goal.Draw(_brd);
+            } else
+                _map->setEntityPos(queue.x, queue.y, Map::ENTITY::OTHER);
         }
-        _snake.MovePos(_delta_loc);
-        _map->setEntityPos(next.x, next.y, Map::ENTITY::PLAYER);
-        if (eating) {
-            _goal.Respawn(_brd, _snake);
-            _goal.Draw(_brd);
-        } else
-            _map->setEntityPos(queue.x, queue.y, Map::ENTITY::OTHER);
+        return true;
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        exit(84);
     }
-    return true;
 }
 
 int SnakeGame::getScore()
