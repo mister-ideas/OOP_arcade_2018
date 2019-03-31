@@ -19,6 +19,8 @@ extern "C"
 
 SFML::SFML()
 {
+    createWindow();
+
     if (!_titleFont.loadFromFile("lib/ressources/font/heav.ttf"))
         exit(84);
     if (!_textFont.loadFromFile("lib/ressources/font/remachinescript.ttf"))
@@ -37,8 +39,6 @@ int SFML::menu(std::vector<std::string> &games)
 {
     (void)games;
     size_t choice = 0;
-
-    createWindow();
 
     sf::Texture backTexture;
     if (!backTexture.loadFromFile("lib/ressources/img/arcade.jpg"))
