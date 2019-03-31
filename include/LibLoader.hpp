@@ -9,7 +9,6 @@
 #define LIBLOADER_HPP_
 
 #include <string>
-#include <iostream>
 #include <dlfcn.h>
 
 template <typename T>

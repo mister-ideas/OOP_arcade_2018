@@ -78,9 +78,10 @@ int SFML::menu(std::vector<std::string> &games)
             switch (_event.type) {
                 case sf::Event::Closed:
                     exit(0);
-                    break;
                 case sf::Event::KeyPressed:
                     switch (_event.key.code) {
+                        case sf::Keyboard::Escape:
+                            exit(0);
                         case sf::Keyboard::Return:
                             return choice;
                         case sf::Keyboard::Up:
@@ -129,6 +130,33 @@ void SFML::getEvents(IGfx::ACTION &action)
         switch (_event.type) {
             case sf::Event::Closed:
                 action = IGfx::ACTION::EXIT;
+                break;
+            case sf::Event::KeyPressed:
+                switch (_event.key.code) {
+                    case sf::Keyboard::Escape:
+                        action = IGfx::ACTION::EXIT;
+                        break;
+                    case sf::Keyboard::Up:
+                        action = IGfx::ACTION::NEXT_GAME;
+                        break;
+                    case sf::Keyboard::Down:
+                        action = IGfx::ACTION::PREV_GAME;
+                        break;
+                    case sf::Keyboard::Left:
+                        action = IGfx::ACTION::PREV_GFX;
+                        break;
+                    case sf::Keyboard::Right:
+                        action = IGfx::ACTION::NEXT_GFX;
+                        break;
+                    case sf::Keyboard::M:
+                        action = IGfx::ACTION::MENU;
+                        break;
+                    case sf::Keyboard::R:
+                        action = IGfx::ACTION::RESTART;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;
