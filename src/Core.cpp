@@ -105,6 +105,7 @@ void Core::events(IGfx::ACTION &event) noexcept
         default:
             break;
     }
+    event = IGfx::ACTION::OTHER;
 }
 
 void Core::start()
