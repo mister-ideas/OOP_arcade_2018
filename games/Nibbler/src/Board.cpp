@@ -111,7 +111,7 @@ bool Board::IsInsideBoard(const Location& loc) const
 void Board::DrawBorder()
 {
     DrawLine({0, 0}, {30, 0});
-    DrawLine({0, 32}, {30, 0});
+    DrawLine({0, 32}, {31, 0});
     DrawLine({0, 0}, {0, 32});
     DrawLine({30, 0}, {0, 32});
 }

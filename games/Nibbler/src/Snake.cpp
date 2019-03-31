@@ -32,9 +32,10 @@ void Snake::Grow()
 
 void Snake::Draw(Board& brd) const
 {
-    for (int i = 0; i < _nDot; i++) {
-        _list[i].Draw(brd);
+    for (int i = 1; i < _nDot; i++) {
+        _list[i].Draw(brd, Map::ENTITY::BODY);
     }
+    _list[0].Draw(brd, Map::ENTITY::PLAYER);
 }
 
 Location Snake::GetNextHeadLocation(const Location& loc) const
@@ -76,9 +77,9 @@ void Snake::Dot::Follow(const Dot& next)
     _loc = next._loc;
 }
 
-void Snake::Dot::Draw( Board& brd) const
+void Snake::Dot::Draw( Board& brd, const Map::ENTITY& type) const
 {
-    brd.DrawCell(_loc, Map::ENTITY::BODY);
+    brd.DrawCell(_loc, type);
 }
 
 void Snake::Dot::MoveHead(const Location& pos_loc)

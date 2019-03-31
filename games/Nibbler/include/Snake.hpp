@@ -30,7 +30,7 @@ private:
         void Init(const Location&);
         void Follow(const Dot&);
         void MoveHead(const Location&);
-        void Draw(Board& brd) const;
+        void Draw(Board& brd, const Map::ENTITY&) const;
         const Location& GetLocation() const;
     private:
         Location _loc;
