@@ -28,6 +28,8 @@ class Map {
 
         Map::ENTITY getEntityPos(int x, int y) const;
         void setEntityPos(int x, int y, const Map::ENTITY &type);
+        int getHeight() const noexcept;
+        int getWidth() const noexcept;
 
 	private:
         std::vector<std::vector<Map::ENTITY>> _map;

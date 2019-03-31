@@ -35,3 +35,13 @@ void Map::setEntityPos(int x, int y, const Map::ENTITY &type)
         throw Error("Requested Y position in map is invalid");
     _map[y - 1][x - 1] = type;
 }
+
+int Map::getHeight() const noexcept
+{
+    return _height;
+}
+
+int Map::getWidth() const noexcept
+{
+    return _width;
+}
