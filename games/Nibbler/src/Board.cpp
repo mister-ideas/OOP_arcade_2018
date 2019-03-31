@@ -13,7 +13,7 @@ Board::Board(std::shared_ptr<Map> map) : _map(map)
 
 void Board::DrawCell(const Location &loc, const Map::ENTITY &entity)
 {
-    _map->setEntityPos(loc.x, loc.y, entity);
+    _map->setEntityPos(loc.x + 1, loc.y + 1, entity);
 }
 
 void Board::DrawLine(const Location& start, const Location& delta_loc)
