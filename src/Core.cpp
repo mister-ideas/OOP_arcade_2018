@@ -112,8 +112,8 @@ void Core::start()
 
     while (inProgress) {
         _currentGfx->clear();
-        _currentGfx->drawMap(_currentGame->getMap());
         _currentGfx->drawScore(100, 2, _currentGame->getScore());
+        _currentGfx->drawMap(_currentGame->getMap());
         _currentGfx->getEvents(action);
         if (action == IGfx::ACTION::EXIT)
             exit(0);
