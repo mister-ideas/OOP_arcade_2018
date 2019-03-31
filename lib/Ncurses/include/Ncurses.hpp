@@ -19,7 +19,8 @@ class Ncurses : public IGfx {
             SELECTED,
             NOT_SELECTED
         };
-        Ncurses();
+        Ncurses() = default;
+	~Ncurses() = default;
 
         // interface
         void createWindow()
