@@ -5,7 +5,7 @@
 ** goal
 */
 
-#include "goal.hpp"
+#include "../include/Goal.hpp"
 
 Goal::Goal(const Board& brd, const Snake& snake)
 {

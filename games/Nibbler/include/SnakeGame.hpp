@@ -10,6 +10,9 @@
 
 #include "../../include/IGame.hpp"
 #include "../../include/Map.hpp"
+#include "../include/Board.hpp"
+#include "../include/Snake.hpp"
+#include "../include/Goal.hpp"
 #include <memory>
 
 class SnakeGame : public IGame {

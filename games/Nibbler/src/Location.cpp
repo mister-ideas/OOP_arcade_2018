@@ -5,7 +5,7 @@
 ** location
 */
 
-#include "location.hpp"
+#include "../include/Location.hpp"
 
 void Location::Add(const Location& val)
 {

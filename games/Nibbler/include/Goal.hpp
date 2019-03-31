@@ -9,8 +9,8 @@
 #define GOAL_HPP_
 
 #include <random>
-#include "location.hpp"
-#include "snake.hpp"
+#include "./Location.hpp"
+#include "./Snake.hpp"
 
 class Goal
 {

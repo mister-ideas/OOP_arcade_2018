@@ -5,8 +5,7 @@
 ** board
 */
 
-#include "board.hpp"
-#include <SFML/Graphics.hpp>
+#include "../include/Board.hpp"
 
 Board::Board(std::shared_ptr<Map> map) : _map(map)
 {

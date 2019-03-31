@@ -9,6 +9,7 @@
 #define IGAME_HPP_
 
 #include "../../games/include/Map.hpp"
+#include <memory>
 
 class IGame {
     public:
