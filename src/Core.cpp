@@ -53,7 +53,6 @@ void Core::loadGfx(std::string &path)
     _currentGfxPos = std::distance(_gfxPaths.begin(), it);
     _currentGfx = loader->getClass("entryPointGfx");
     loadGame(_gamesPaths[_currentGfx->menu(_gamesPaths)]);
-    start();
 }
 
 void Core::loadGame(const std::string &path)
@@ -65,6 +64,7 @@ void Core::loadGame(const std::string &path)
     _currentGamePos = std::distance(_gamesPaths.begin(), it);
     _currentGame = loader->getClass("entryPointGame");
     _currentGame->generateMap();
+    start();
 }
 
 void Core::events(IGfx::ACTION &event) noexcept
