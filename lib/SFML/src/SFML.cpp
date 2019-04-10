@@ -37,7 +37,7 @@ void SFML::createWindow()
 
 int SFML::menu(std::vector<std::string> &games)
 {
-    (void)games;
+    _games = games;
     size_t choice = 0;
 
     sf::Texture backTexture;
@@ -104,7 +104,7 @@ int SFML::menu(std::vector<std::string> &games)
         _window.draw(menuRect);
         _window.draw(title);
         _window.draw(textChoose);
-        textGame.setString(games[choice]);
+        textGame.setString(_games[choice]);
         _window.draw(textGame);
 
         _window.display();
