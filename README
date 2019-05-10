@@ -15,6 +15,18 @@ Tatiana Relic-De Lima
 
 Interfaces shared with noah.farjon@epitech.eu's group.
 
+*--------*
+|BUILDING|
+*--------*
+
+$ make
+
+*-----*
+|USAGE|
+*-----*
+
+$ ./arcade [file_path] (graphic library located in ./lib folder)
+
 *-----------------*
 |USER INTERACTIONS|
 *-----------------*
