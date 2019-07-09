@@ -5,16 +5,6 @@
 Arcade program with multiples graphics and games libraries.
 USAGE: ./arcade path_to_graphics_lib_file (don't forget ./lib/ in the path!)
 
-*-------*
-|AUTHORS|
-*-------*
-
-Vincent Attali
-Guillaume Deshaies
-Tatiana Relic-De Lima
-
-Interfaces shared with noah.farjon@epitech.eu's group.
-
 *--------*
 |BUILDING|
 *--------*
